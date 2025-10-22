@@ -1,0 +1,61 @@
+// Base variables
+$primary: #0066ff;
+$secondary: #e0e7ff;
+$destructive: #ef4444;
+$foreground: #111;
+$background: #fff;
+$border: #e5e7eb;
+$accent: #f1f5f9;
+
+// Base badge style
+.badge-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: default;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+// Variants
+.badge-default {
+  background: $primary;
+  color: $background;
+
+  &:hover {
+    background: lighten($primary, 5%);
+  }
+}
+
+.badge-secondary {
+  background: $secondary;
+  color: $foreground;
+
+  &:hover {
+    background: darken($secondary, 5%);
+  }
+}
+
+.badge-destructive {
+  background: $destructive;
+  color: $background;
+
+  &:hover {
+    background: darken($destructive, 5%);
+  }
+}
+
+.badge-outline {
+  background: transparent;
+  color: $foreground;
+  border-color: $border;
+
+  &:hover {
+    background: $accent;
+  }
+}

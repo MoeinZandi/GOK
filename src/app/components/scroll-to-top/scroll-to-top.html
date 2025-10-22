@@ -1,0 +1,10 @@
+<div
+  class="scroll-to-top"
+  [style.opacity]="isVisible ? '1' : '0'"
+  [style.transform]="isVisible ? 'translateY(0)' : 'translateY(40px)'"
+  [style.pointerEvents]="isVisible ? 'auto' : 'none'"
+>
+  <button class="scroll-btn" (click)="scrollToTop()" aria-label="Scroll to top">
+    ↑
+  </button>
+</div>

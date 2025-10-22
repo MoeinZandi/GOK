@@ -1,0 +1,137 @@
+$page-padding: 2rem;
+$primary: #0066ff;
+$text-muted: #666;
+$border: #e5e5e5;
+$bg: #fafafa;
+
+.page {
+  min-height: 100vh;
+  background-color: $bg;
+  padding: $page-padding;
+  gap: 100px;
+
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+
+      .highlight {
+        color: $primary;
+      }
+    }
+
+    p {
+      color: $text-muted;
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0.5rem auto 0;
+    }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid $border;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-body {
+      padding: 1.2rem;
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+
+        .badge {
+          padding: 0.25rem 0.6rem;
+          border-radius: 6px;
+          font-size: 0.75rem;
+          color: white;
+
+          &.beginner {
+            background: #28a745;
+          }
+          &.intermediate {
+            background: #ffc107;
+          }
+          &.advanced {
+            background: #dc3545;
+          }
+        }
+
+        .rating {
+          color: #f0ad4e;
+          font-size: 0.9rem;
+        }
+      }
+
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0.3rem 0;
+      }
+
+      .instructor {
+        font-size: 0.9rem;
+        color: $text-muted;
+      }
+
+      .description {
+        font-size: 0.85rem;
+        color: $text-muted;
+        margin: 0.8rem 0;
+        line-height: 1.4;
+      }
+
+      .info {
+        display: flex;
+        justify-content: space-between;
+        color: $text-muted;
+        font-size: 0.85rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 0.7rem;
+        background: $primary;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: white;
+          color: $primary;
+          border: 2px solid $primary;
+        }
+      }
+    }
+  }
+}

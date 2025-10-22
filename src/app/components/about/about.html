@@ -1,0 +1,96 @@
+<div class="page">
+  <header class="header">
+    <h1>Galaxy Of Knowledge</h1>
+    <p>Your gateway to global education</p>
+  </header>
+
+  <section id="hero" class="section">
+    <h2>About GOK</h2>
+    <p>
+      We are a global learning platform dedicated to democratizing access to high-quality education
+      and empowering learners worldwide to unlock their potential.
+    </p>
+    <div class="buttons">
+      <a href="/classes" class="btn primary">Explore Courses</a>
+      <a href="/contact" class="btn outline">Get in Touch</a>
+    </div>
+  </section>
+
+  <section id="mission" class="section">
+    <h2>Our Mission</h2>
+    <p>
+      At Galaxy Of Knowledge, we believe that education is the most powerful tool for transformation.
+      We strive to bridge the gap between traditional learning and modern skill demands.
+    </p>
+  </section>
+
+  <section id="stats" class="stats">
+    <div class="card">
+      <h3>{{ stats[0]?.values }}</h3>
+      <p>{{ stats[0]?.Label }}</p>
+    </div>
+    <div class="card">
+      <h3>{{ stats[1]?.Value }}</h3>
+      <p>{{ stats[1]?.Label }}</p>
+    </div>
+    <div class="card">
+      <h3>{{ stats[2]?.Value }}</h3>
+      <p>{{ stats[2]?.Label }}</p>
+    </div>
+  </section>
+
+  <section id="values" class="values">
+    <div class="value-card">
+      <div class="emoji">{{ values[0]?.Emoji }}</div>
+      <h4>{{ values[0]?.Title }}</h4>
+      <p>{{ values[0]?.Description }}</p>
+    </div>
+    <div class="value-card">
+      <div class="emoji">{{ values[1]?.Emoji }}</div>
+      <h4>{{ values[1]?.Title }}</h4>
+      <p>{{ values[1]?.Description }}</p>
+    </div>
+    <div class="value-card">
+      <div class="emoji">{{ values[2]?.Emoji }}</div>
+      <h4>{{ values[2]?.Title }}</h4>
+      <p>{{ values[2]?.Description }}</p>
+    </div>
+    <div class="value-card">
+      <div class="emoji">{{ values[3]?.Emoji }}</div>
+      <h4>{{ values[3]?.Title }}</h4>
+      <p>{{ values[3]?.Description }}</p>
+    </div>
+  </section>
+
+  <section id="team" class="team">
+    <h2>Leadership Team</h2>
+    <div class="team-card">
+      <div class="emoji">{{ team[0]?.Emoji }}</div>
+      <h4>{{ team[0]?.Name }}</h4>
+      <p>{{ team[0]?.Role }}</p>
+    </div>
+    <div class="team-card">
+      <div class="emoji">{{ team[1]?.Emoji }}</div>
+      <h4>{{ team[1]?.Name }}</h4>
+      <p>{{ team[1]?.Role }}</p>
+    </div>
+    <div class="team-card">
+      <div class="emoji">{{ team[2]?.Emoji }}</div>
+      <h4>{{ team[2]?.Name }}</h4>
+      <p>{{ team[2]?.Role }}</p>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Ready to Start Learning?</h2>
+    <p>
+      Join thousands of learners transforming their lives through our courses and expert instruction.
+    </p>
+    <div class="buttons">
+      <a href="/register" class="btn primary">Get Started Today</a>
+      <a href="/classes" class="btn outline">Browse Courses</a>
+    </div>
+  </section>
+
+  <button class="scroll-top" (click)="scrollToTop()" [style.display]="showScroll ? 'block' : 'none'">↑</button>
+</div>

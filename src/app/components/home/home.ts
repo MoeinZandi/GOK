@@ -1,0 +1,21 @@
+import { Component } from '@angular/core';
+import { HeroSectionComponent } from "../hero-section/hero-section";
+import { ScrollToTopcomponent, ScrollToTop } from "../scroll-to-top/scroll-to-top";
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.html',
+  styleUrls: ['./home.scss'],
+  imports: [HeroSectionComponent, ScrollToTopcomponent, ScrollToTop]
+})
+export class HomeComponent {
+searchQuery: any;
+onSearchInput(arg0: string) {
+throw new Error('Method not implemented.');
+}
+handleSearch($event: SubmitEvent) {
+throw new Error('Method not implemented.');
+}
+  isAuthenticated = false;
+  user: any = undefined;
+}

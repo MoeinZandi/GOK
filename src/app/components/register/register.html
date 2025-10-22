@@ -1,0 +1,72 @@
+<div class="page">
+  <!-- Navigation -->
+  <!-- <nav class="navigation">
+    <div class="nav-container">
+      <h2 class="logo">KnowledgeHub</h2>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/classes">Classes</a>
+        <a href="/about">About</a>
+      </div>
+    </div>
+  </nav> -->
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="card">
+      <div class="card-header">
+        <h1>Join KnowledgeHub</h1>
+        <p>Create your account and start your learning journey today</p>
+      </div>
+
+     <form>
+       
+       <mat-form-field appearance="outline">
+         <mat-label>Name</mat-label>
+         <input type="text" [formControl]="UserNameCtrl" matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input type="email" [formControl]="EmailCtrl" matInput>
+        </mat-form-field>
+        
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Age</mat-label>
+          <input type="number" [formControl]="AgeCtrl" matInput>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Gender</mat-label>
+          <input type="text" [formControl]="GenderCtrl" matInput>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>City</mat-label>
+          <input type="text" [formControl]="CityCtrl" matInput>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Country</mat-label>
+          <input type="text" [formControl]="CountryCtrl" matInput>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input type="password" [formControl]="PasswordCtrl" matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input type="password" [formControl]="ConfirmPasswordCtrl" matInput>
+        </mat-form-field>
+
+      <button routerLink="/classes" class="btn" (click)="register()" [disabled]="registerFg.invalid" >
+            Register
+        </button>
+
+        <div class="signin-text">
+          Already have an account?
+          <a href="/signin" class="link">Sign in here</a>
+        </div>

@@ -1,0 +1,110 @@
+<div class="hero-section">
+  <div class="hero-bg"></div>
+
+  <div class="hero-content">
+    <div class="text-center">
+      <div class="badge-container">
+        <div class="badge">🏆 Trusted by 50,000+ learners worldwide</div>
+      </div>
+
+      <h1 class="hero-title">
+        Your Global Hub for
+        <span class="highlight">Knowledge & Learning</span>
+      </h1>
+
+       <!-- Search -->
+        <div class="home-search-bar">
+             <input type="text" placeholder="Search for classes or topics..." />
+             <button>Search</button>
+        </div>
+
+      <p class="hero-subtext">
+        Connect with learners worldwide, access expert-led classes, and expand your knowledge in a collaborative
+        environment designed for curious minds.
+      </p>
+
+      <div class="buttons">
+        <button class="btn primary" onclick="window.location.href='/register'">
+          Start Learning Today 🚀
+        </button>
+        <button class="btn outline" onclick="window.location.href='/classes'">
+          Explore Classes 👀
+        </button>
+      </div>
+
+      <div class="stats">
+        <div>⭐ 4.9/5 rating</div>
+        <div>🎓 95% completion rate</div>
+        <div>💼 85% career advancement</div>
+      </div>
+    </div>
+
+    <div class="features">
+      <!-- Static feature cards, hover controlled in TS -->
+      <div
+        class="feature-card feature-blue"
+        tabindex="0"
+        (mouseenter)="setHover(0)"
+        (mouseleave)="setHover(null)"
+      >
+        <div class="icon">📚</div>
+        <div class="badge small">1000+ Courses</div>
+        <h3>Expert Classes</h3>
+        <p>Learn from industry experts and experienced educators</p>
+        <div class="learn-more" [style.opacity]="hoveredCard === 0 ? 1 : 0">Learn more →</div>
+      </div>
+
+      <div
+        class="feature-card feature-green"
+        tabindex="0"
+        (mouseenter)="setHover(1)"
+        (mouseleave)="setHover(null)"
+      >
+        <div class="icon">👥</div>
+        <div class="badge small">50K+ Students</div>
+        <h3>Global Community</h3>
+        <p>Connect with learners from around the world</p>
+        <div class="learn-more" [style.opacity]="hoveredCard === 1 ? 1 : 0">Learn more →</div>
+      </div>
+
+      <div
+        class="feature-card feature-purple"
+        tabindex="0"
+        (mouseenter)="setHover(2)"
+        (mouseleave)="setHover(null)"
+      >
+        <div class="icon">🌍</div>
+        <div class="badge small">24/7 Access</div>
+        <h3>Accessible Anywhere</h3>
+        <p>Learn at your own pace, from anywhere in the world</p>
+        <div class="learn-more" [style.opacity]="hoveredCard === 2 ? 1 : 0">Learn more →</div>
+      </div>
+
+      <div
+        class="feature-card feature-orange"
+        tabindex="0"
+        (mouseenter)="setHover(3)"
+        (mouseleave)="setHover(null)"
+      >
+        <div class="icon">💡</div>
+        <div class="badge small">Job Ready</div>
+        <h3>Practical Skills</h3>
+        <p>Gain real-world skills that advance your career</p>
+        <div class="learn-more" [style.opacity]="hoveredCard === 3 ? 1 : 0">Learn more →</div>
+      </div>
+    </div>
+
+    <div class="cta">
+      <h2>Ready to start your learning journey?</h2>
+      <p>Join thousands of learners who are already advancing their careers</p>
+      <div class="cta-buttons">
+        <button class="btn primary" onclick="window.location.href='/classes'">
+          Browse All Courses
+        </button>
+        <button class="btn ghost" onclick="window.location.href='/about'">
+          Learn More About Us
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
