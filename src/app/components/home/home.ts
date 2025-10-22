@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { HeroSectionComponent } from "../hero-section/hero-section";
-import { ScrollToTopcomponent, ScrollToTop } from "../scroll-to-top/scroll-to-top";
+import { ScrollToTopComponent } from "../scroll-to-top/scroll-to-top";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
-  imports: [HeroSectionComponent, ScrollToTopcomponent, ScrollToTop]
+  imports: [HeroSectionComponent, ScrollToTopComponent]
 })
 export class HomeComponent {
 searchQuery: any;

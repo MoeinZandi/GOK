@@ -1,15 +1,4 @@
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-about',
-  imports: [],
-  templateUrl: './about.html',
-  styleUrl: './about.scss'
-})
-export class About {
-
-}
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component , OnInit, HostListener } from '@angular/core';
 import { AboutService } from '../../services/about.service';
 
 @Component({

@@ -3,16 +3,15 @@ import { ApiService } from '../../services/api.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AccountService } from '../../services/account.service';
 import { Router } from '@angular/router';
-import { mattoolbarmodule}
 
-@Component({
+ @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.scss'],
-  imports: [ MatToolbarModule, ],
+  imports: [ MatToolbarModule],
   standalone: true
 })
-export class navbar {
+export class Navbar {
   isAuthenticated = false;
   isMobileMenuOpen = false;
   searchQuery = '';

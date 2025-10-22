@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AccountService } from '../../services/account.service';
-import { Login } from '../../models/login.model';
+import { Login} from '../../models/login.model';
 import { LoggedInUser } from '../../models/logged-in.model';
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from '@angular/material/button';
