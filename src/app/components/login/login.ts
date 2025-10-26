@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AccountService } from '../../services/account.service';
 import { Login} from '../../models/login.model';
 import { LoggedInUser } from '../../models/logged-in.model';
 import { MatInputModule } from "@angular/material/input";
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-login',
@@ -13,8 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     RouterModule,
     FormsModule, ReactiveFormsModule,MatInputModule,
-    MatButtonModule
-
+    MatButtonModule, MatSnackBarModule
 ],
   templateUrl: './login.html',
   styleUrl: './login.scss'
@@ -22,6 +22,10 @@ import { MatButtonModule } from '@angular/material/button';
 export class LoginComponent {
   accountService = inject(AccountService);
   fB = inject(FormBuilder);
+  
+  private _snackBar = inject(MatSnackBar);
+  private _router = inject(Router);
+
 
   //#region loginFg
   loginFg = this.fB.group({
@@ -43,14 +47,39 @@ export class LoginComponent {
       userName: this.UserNameCtrl.value,
       password: this.PasswordCtrl.value
     }
-    console.log("ok");
-    
 
     let loginRes$: Observable<LoggedInUser | null> = this.accountService.login(userIn);
 
     loginRes$.subscribe({
       next: (res) => {
-        console.log(res);
+        this._snackBar.open(
+          '✅ You logged in successfully!',
+          'Go to Classes',
+          {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+            panelClass: ['succes-snackbar']
+          }
+        );
+        this._router.navigate(['/classes'])
+        // snackBarRef.onAction().subscribe(() => {
+        // });
+        // snackBarRef.afterDismissed().subscribe(info => {
+        //   if (!info.dismissedByAction) {
+        //     this.router.navigate(['/classes']);
+        //   }
+        // });
+      },
+      error: (err) => {
+        this._snackBar.open('❌ Invalid username or password!', 'close', {
+          duration: 4000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+          panelClass: ['erro-snackbar']
+      }
+
+        )
       }
     })
   }

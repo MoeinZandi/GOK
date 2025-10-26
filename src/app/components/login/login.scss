@@ -38,6 +38,15 @@ $border: #e5e5e5;
       }
     }
   }
+  .success-snackbar {
+  background-color: #4caf50 !important;
+  color: #fff !important;
+}
+
+.error-snackbar {
+  background-color: #f44336 !important;
+  color: #fff !important;
+}
 
   .main {
     flex: 1;
@@ -58,16 +67,17 @@ $border: #e5e5e5;
       .card-header {
         text-align: center;
         margin-bottom: 1.5rem;
+        
 
         h1 {
-          font-size: 1.8rem;
+          font-size: 2rem;
           font-weight: 700;
           margin-bottom: 0.5rem;
         }
 
         p {
           color: $text-muted;
-          font-size: 0.95rem;
+          font-size: 1.1rem;
         }
       }
 
@@ -83,6 +93,7 @@ $border: #e5e5e5;
           label {
             font-weight: 600;
             margin-bottom: 0.4rem;
+
           }
 
           input {
@@ -128,7 +139,7 @@ $border: #e5e5e5;
             font-weight: 600;
 
             &:hover {
-              text-decoration: underline;
+              text-decoration: underline $primary;
             }
           }
         }

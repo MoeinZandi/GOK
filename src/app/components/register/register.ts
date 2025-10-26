@@ -1,82 +1,124 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Component, inject, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { map, Observable, startWith } from 'rxjs';
 import { RouterLink, RouterModule } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { AppUser } from '../../models/app-user.model';
 import { LoggedInUser } from '../../models/logged-in.model';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { AsyncPipe } from '@angular/common';
+import { Country, State, City, ICountry, IState, ICity } from 'country-state-city';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
-    RouterModule, RouterLink,
-    FormsModule, ReactiveFormsModule,
-    MatInputModule, MatFormFieldModule
+    RouterModule,
+    RouterLink,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatStepperModule,
+    MatAutocompleteModule,
+    AsyncPipe,
   ],
   templateUrl: './register.html',
-  styleUrl: './register.scss'
+  styleUrls: ['./register.scss'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   accountService = inject(AccountService);
   fB = inject(FormBuilder);
 
-  userResponse: LoggedInUser | undefined | null;
-  error: string | undefined;
+  /** Gender options */
+  options: string[] = ['Male', 'Female', 'Others'];
+  filteredOptions?: Observable<string[]>;
 
-  //#region 
-  registerFg = this.fB.group({
-    userNameCtrl: ['', [Validators.required]],
-    emailCtrl: ['', [Validators.required, Validators.email]], // formControl
-    ageCtrl: ['', [Validators.required, Validators.min(1), Validators.max(99)]],
-    genderCtrl: ['',[Validators.required]],
-    cityCtrl: [''],
-    country: [''],
+  /** Country/state/city data */
+  countries: ICountry[] = Country.getAllCountries();
+  states: IState[] = [];
+  cities: ICity[] = [];
+
+  selectedCountryCode = '';
+  selectedStateCode = '';
+  loadingCities = false;
+
+  userResponse?: LoggedInUser | null;
+  error?: string;
+
+  /** Stepper form groups */
+  FirstFg = this.fB.group({
+    userNameCtrl: ['', Validators.required],
+    emailCtrl: ['', [Validators.required, Validators.email]],
     passwordCtrl: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
-    confirmPasswordCtrl: ['', [Validators.required]],
-    avatarCtrl: [''] 
+    confirmPasswordCtrl: ['', Validators.required],
   });
-  get UserNameCtrl(): FormControl {
-    return this.registerFg.get('userNameCtrl') as FormControl;
+
+  SecondFg = this.fB.group({
+    ageCtrl: ['', [Validators.required, Validators.min(1), Validators.max(99)]],
+    genderCtrl: ['', Validators.required],
+    countryCtrl: ['', Validators.required],
+    stateCtrl: [''],
+    cityCtrl: [''],
+    avatarCtrl: [''],
+  });
+
+  isLinear = false;
+
+  /** Getters */
+  get UserNameCtrl(): FormControl { return this.FirstFg.get('userNameCtrl') as FormControl; }
+  get EmailCtrl(): FormControl { return this.FirstFg.get('emailCtrl') as FormControl; }
+  get PasswordCtrl(): FormControl { return this.FirstFg.get('passwordCtrl') as FormControl; }
+  get ConfirmPasswordCtrl(): FormControl { return this.FirstFg.get('confirmPasswordCtrl') as FormControl; }
+  get AgeCtrl(): FormControl { return this.SecondFg.get('ageCtrl') as FormControl; }
+  get GenderCtrl(): FormControl { return this.SecondFg.get('genderCtrl') as FormControl; }
+  get CountryCtrl(): FormControl { return this.SecondFg.get('countryCtrl') as FormControl; }
+  get StateCtrl(): FormControl { return this.SecondFg.get('stateCtrl') as FormControl; }
+  get CityCtrl(): FormControl { return this.SecondFg.get('cityCtrl') as FormControl; }
+  get AvatarCtrl(): FormControl { return this.SecondFg.get('avatarCtrl') as FormControl; }
+
+  ngOnInit() {
+    this.filteredOptions = this.GenderCtrl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterGender(value || ''))
+    );
   }
 
-  get EmailCtrl(): FormControl {
-    return this.registerFg.get('emailCtrl') as FormControl;
+  private _filterGender(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  get PasswordCtrl(): FormControl {
-    return this.registerFg.get('passwordCtrl') as FormControl;
+  onCountryChange(event: Event): void {
+  const select = event.target as HTMLSelectElement;
+  const code = select.value;
+    
+    if (!code) return;
+    this.selectedCountryCode = code;
+    this.states = State.getStatesOfCountry(code);
+    this.cities = [];
   }
 
-  get ConfirmPasswordCtrl(): FormControl {
-    return this.registerFg.get('confirmPasswordCtrl') as FormControl;
-  }
+  onStateChange(event: Event ): void {
+    const select = event.target as HTMLSelectElement;
+    const code = select.value;  
 
-    get AgeCtrl(): FormControl {
-    return this.registerFg.get('ageCtrl') as FormControl;
+    if (!code || !this.selectedCountryCode) return;
+    this.selectedStateCode = code;
+    this.loadingCities = true;
   }
-
-    get GenderCtrl(): FormControl {
-    return this.registerFg.get('genderCtrl') as FormControl;
-  }
-
-    get CityCtrl(): FormControl {
-    return this.registerFg.get('cityCtrl') as FormControl;
-  }
-
-    get CountryCtrl(): FormControl {
-    return this.registerFg.get('countryCtrl') as unknown as FormControl;
-  }
-
-  get AvatarCtrl(): FormControl {
-    return this.registerFg.get('avatarctrl') as unknown as FormControl;
-  }
-  //#endregion
 
   register(): void {
-    let userInput: AppUser = {
+    const userInput: AppUser = {
       userName: this.UserNameCtrl.value,
       email: this.EmailCtrl.value,
       age: this.AgeCtrl.value,
@@ -85,21 +127,14 @@ export class RegisterComponent {
       country: this.CountryCtrl.value,
       password: this.PasswordCtrl.value,
       confirmPassword: this.ConfirmPasswordCtrl.value,
-      avatar: this.AvatarCtrl.value
-    }
-    
+      avatar: this.AvatarCtrl.value,
+    };
 
-    let response$: Observable<LoggedInUser | null> = this.accountService.register(userInput);
+    const response$: Observable<LoggedInUser | null> = this.accountService.register(userInput);
 
     response$.subscribe({
-      next: (res) => {
-        console.log(res);
-        this.userResponse = res;
-      },
-      error: (err) => {
-        console.log(err.error);
-        this.error = err.error;
-      }
+      next: res => this.userResponse = res,
+      error: err => this.error = err.error,
     });
   }
 }

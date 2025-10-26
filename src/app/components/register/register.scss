@@ -9,6 +9,10 @@ $border: #e5e5e5;
   background: $page-bg;
   display: flex;
   flex-direction: column;
+  width: 70vh;
+  align-items: center;
+  align-content: center;
+  align-self: center;
 
   .navigation {
     background: #fff;
@@ -39,6 +43,16 @@ $border: #e5e5e5;
       }
     }
   }
+  .genderform {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.genderform-full-width {
+  width: 100%;
+}
+
 
   .main {
     flex: 1;
@@ -102,7 +116,7 @@ $border: #e5e5e5;
 
         .btn {
           background: $primary;
-          color: white;
+          color: rgb(255, 0, 0);
           border: none;
           border-radius: 8px;
           padding: 0.8rem;
@@ -111,7 +125,7 @@ $border: #e5e5e5;
           transition: all 0.3s ease;
 
           &:hover {
-            background: white;
+            background: rgb(0, 0, 0);
             color: $primary;
             border: 2px solid $primary;
           }
@@ -136,4 +150,12 @@ $border: #e5e5e5;
       }
     }
   }
+}
+
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
 }

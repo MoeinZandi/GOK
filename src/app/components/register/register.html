@@ -1,17 +1,4 @@
 <div class="page">
-  <!-- Navigation -->
-  <!-- <nav class="navigation">
-    <div class="nav-container">
-      <h2 class="logo">KnowledgeHub</h2>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/classes">Classes</a>
-        <a href="/about">About</a>
-      </div>
-    </div>
-  </nav> -->
-
-  <!-- Main Content -->
   <main class="main">
     <div class="card">
       <div class="card-header">
@@ -19,54 +6,158 @@
         <p>Create your account and start your learning journey today</p>
       </div>
 
-     <form>
-       
-       <mat-form-field appearance="outline">
-         <mat-label>Name</mat-label>
-         <input type="text" [formControl]="UserNameCtrl" matInput>
-        </mat-form-field>
+      <mat-stepper [linear]="isLinear" #stepper>
+        <!-- STEP 1 -->
+        <mat-step [stepControl]="FirstFg">
+          <form [formGroup]="FirstFg">
+            <ng-template matStepLabel>Personal Details</ng-template>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input type="email" [formControl]="EmailCtrl" matInput>
-        </mat-form-field>
-        
-        
-        <mat-form-field appearance="outline">
-          <mat-label>Age</mat-label>
-          <input type="number" [formControl]="AgeCtrl" matInput>
-        </mat-form-field>
-        
-        <mat-form-field appearance="outline">
-          <mat-label>Gender</mat-label>
-          <input type="text" [formControl]="GenderCtrl" matInput>
-        </mat-form-field>
-        
-        <mat-form-field appearance="outline">
-          <mat-label>City</mat-label>
-          <input type="text" [formControl]="CityCtrl" matInput>
-        </mat-form-field>
-        
-        <mat-form-field appearance="outline">
-          <mat-label>Country</mat-label>
-          <input type="text" [formControl]="CountryCtrl" matInput>
-        </mat-form-field>
-        
-        <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input type="password" [formControl]="PasswordCtrl" matInput>
-        </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>User Name</mat-label>
+              <input
+                matInput
+                placeholder="UserName"
+                formControlName="userNameCtrl"
+                required
+              />
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Confirm Password</mat-label>
-            <input type="password" [formControl]="ConfirmPasswordCtrl" matInput>
-        </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+              <input
+                matInput
+                placeholder="Email"
+                formControlName="emailCtrl"
+                required
+              />
+            </mat-form-field>
 
-      <button routerLink="/classes" class="btn" (click)="register()" [disabled]="registerFg.invalid" >
-            Register
-        </button>
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                type="password"
+                formControlName="passwordCtrl"
+                required
+              />
+            </mat-form-field>
 
-        <div class="signin-text">
-          Already have an account?
-          <a href="/signin" class="link">Sign in here</a>
-        </div>
+            <mat-form-field appearance="fill">
+              <mat-label>Confirm Password</mat-label>
+              <input
+                matInput
+                type="password"
+                formControlName="confirmPasswordCtrl"
+                required
+              />
+            </mat-form-field>
+
+            <div>
+              <button mat-button matStepperNext class="btn">Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <!-- STEP 2 -->
+        <mat-step [stepControl]="SecondFg">
+          <form [formGroup]="SecondFg">
+            <ng-template matStepLabel>Extra Details</ng-template>
+
+            <!-- Age -->
+            <mat-form-field appearance="fill">
+              <mat-label>Age</mat-label>
+              <input
+                matInput
+                formControlName="ageCtrl"
+                placeholder="1–99"
+                required
+              />
+            </mat-form-field>
+
+            <!-- Gender -->
+            <mat-form-field appearance="fill">
+              <mat-label>Gender</mat-label>
+              <input
+                type="text"
+                matInput
+                placeholder="Select Gender"
+                [formControl]="GenderCtrl"
+                [matAutocomplete]="autoGender"
+              />
+              <mat-autocomplete #autoGender="matAutocomplete">
+                @for (option of filteredOptions | async; track option) {
+                  <mat-option [value]="option">{{ option }}</mat-option>
+                }
+              </mat-autocomplete>
+            </mat-form-field>
+
+<!-- Country -->
+<mat-form-field appearance="fill">
+  <mat-label>Country</mat-label>
+  <mat-select
+    formControlName="countryCtrl"
+    (change)="onCountryChange($event)"
+  >
+    <option value="">-- Select Country --</option>
+    @for (country of countries; track country.isoCode) {
+      <mat-option [value]="country.isoCode">{{ country.name }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+<!-- State -->
+<mat-form-field appearance="fill">
+  <mat-label>State</mat-label>
+  <mat-select
+    formControlName="stateCtrl"
+    (change)="onStateChange($event)"
+  >
+    <option value="">-- Select State --</option>
+    @for (state of states; track state.isoCode) {
+      <mat-option [value]="state.isoCode">{{ state.name }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+<!-- City -->
+<mat-form-field appearance="fill">
+  <mat-label>City</mat-label>
+  <mat-select formControlName="cityCtrl">
+    <mat-option value="">-- Select City --</mat-option>
+    @for (city of cities; track city.name) {
+      <option [value]="city.name">{{ city.name }}</option>
+    }
+  </mat-select>
+</mat-form-field>
+
+
+            <div>
+              <button mat-button matStepperPrevious class="btn">Back</button>
+              <button mat-button matStepperNext class="btn">Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <!-- STEP 3 -->
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <p>You are now done.</p>
+          <div>
+            <button
+              mat-button
+              routerLink="classes"
+              (click)="register()"
+            >
+              Register
+            </button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+
+      <div class="signin-text">
+        Already have an account?
+        <a href="/signin" class="link">Sign in here</a>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,15 +1,4 @@
 <div class="page">
-  <!-- Navigation
-  <nav class="navigation">
-    <div class="nav-container">
-      <h2 class="logo">KnowledgeHub</h2>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/classes">Classes</a>
-        <a href="/about">About</a>
-      </div>
-    </div>
-  </nav> -->
 
   <!-- Main Content -->
   <main class="main">
@@ -30,7 +19,7 @@
             <input type="password" [formControl]="PasswordCtrl" matInput>
         </mat-form-field>
 
-        <button routerLink="/classes" class="btn" (click)="login()" [disabled]="loginFg.invalid" >
+        <button class="btn" (click)="login()" [disabled]="loginFg.invalid" >
             Login
         </button>
 
