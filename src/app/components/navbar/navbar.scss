@@ -1,4 +1,4 @@
-$primary: #6a0dff; // adjust to your project’s accent
+$primary: #6a0dff;
 $text: #374151;
 $text-muted: #6b7280;
 $border: #e5e7eb;
@@ -6,181 +6,76 @@ $bg: #ffffff;
 
 .navbar {
   position: fixed;
-  top: 5;
-  z-index: 100;
+  top: 0;
+  left: 0;
   width: 100%;
-  background: rgba(255, 255, 255, 0);
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid $border;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.247);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
   .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 5rem;
-    padding: 0.4rem 1.5rem;
+    padding: 0.6rem 2rem;
     flex-wrap: wrap;
   }
 
-  .logo img {
-    height: 45px;
-    width: 40px;
-    object-fit: fill ;
-    border-radius: 50%;
-  }
-
-  .links {
+  /* --- Left Section: Logo + Links --- */
+  .left-section {
     display: flex;
     align-items: center;
-    gap: 1.75rem;
+    gap: 2rem;
 
-    .nav-link {
-      text-decoration: none;
-      color: $text-muted;
-      font-weight: 500;
-      padding: 0.4rem 0.75rem;
-      border-radius: 6px;
-      transition: all 0.3s ease;
+    .logo img {
+      height: 42px;
+      width: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
 
-        &.primary {
-          background: $primary;
-          color: white;
+    .links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
 
-          &:hover {
-          background: white;
+      .nav-link {
+        text-decoration: none;
+        color: $text-muted;
+        font-weight: 500;
+        padding: 0.45rem 0.8rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+
+        &:hover {
           color: $primary;
-          border-color: $primary;
-        }
-        
-        &.ghost {
-          background: transparent;
-          color: $primary;
-          border: 2px solid $primary;
-          
-          &:hover {
-            background: rgba($primary,1);
-            color: white;
-            
-          }
+          background: rgba($primary, 0.1);
         }
       }
     }
   }
 
+  /* --- Right Section: Auth --- */
   .auth {
     display: flex;
     align-items: center;
     gap: 1rem;
 
-    .user {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-
-      .nav-link {
-        background: transparent;
-        border: 2px solid $primary;
-        color: $primary;
-        font-weight: 500;
-        padding: 5rem 7rem;
-        border-radius: 6px;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        text-decoration: none;
-
-        &:hover {
-          background: $primary;
-          color: white;
-        }
-      }
-
-      .avatar-dropdown {
-        position: relative;
-
-        .avatar-btn {
-          background: none;
-          border: none;
-          padding: 0;
-          cursor: pointer;
-        }
-
-        .avatar {
-          width: 38px;
-          height: 38px;
-          border-radius: 50%;
-          object-fit: cover;
-        }
-
-        .dropdown {
-          display: none;
-          position: absolute;
-          right: 0;
-          top: 120%;
-          background: white;
-          border-radius: 8px;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-          width: 200px;
-          padding: 0.5rem 0;
-          z-index: 200;
-
-          .user-info {
-            padding: 0.5rem 1rem;
-            border-bottom: 1px solid $border;
-
-            .name {
-              font-weight: 600;
-            }
-            .email {
-              font-size: 0.8rem;
-              color: $text-muted;
-            }
-          }
-
-          .dropdown-item {
-            display: block;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            color: $text-muted;
-            transition: background 0.2s ease;
-
-            &:hover {
-              background: rgba($primary, 0.1);
-              color: $primary;
-            }
-
-            &.destructive {
-              color: #dc2626;
-
-              &:hover {
-                background: rgba(#dc2626, 0.1);
-              }
-            }
-          }
-        }
-
-        &:hover .dropdown {
-          display: block;
-        }
-      }
-    }
-
     .guest {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
 
       .btn {
         text-decoration: none;
         border: 2px solid transparent;
-        border-radius: 6px;
+        border-radius: 8px;
         padding: 0.45rem 1rem;
         font-weight: 500;
         cursor: pointer;
         transition: all 0.3s ease;
-        font-size: 0.95rem;
 
         &.primary {
           background: $primary;
@@ -194,25 +89,100 @@ $bg: #ffffff;
         }
       }
     }
+
+    .user {
+      position: relative;
+
+      .avatar-btn {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+      }
+
+      .avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid $primary;
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+
+      .dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 110%;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 220px;
+        padding: 0.5rem 0;
+        z-index: 2000;
+
+        .user-info {
+          padding: 0.75rem 1rem;
+          border-bottom: 1px solid $border;
+
+          .name {
+            font-weight: 600;
+          }
+
+          .email,
+          .age,
+          .gender {
+            font-size: 0.8rem;
+            color: $text-muted;
+          }
+        }
+
+        .dropdown-item {
+          display: block;
+          padding: 0.5rem 1rem;
+          text-decoration: none;
+          color: $text-muted;
+          transition: background 0.2s ease;
+          font-weight: 500;
+
+          &:hover {
+            background: rgba($primary, 0.1);
+            color: $primary;
+          }
+
+          &.destructive {
+            color: #dc2626;
+
+            &:hover {
+              background: rgba(#dc2626, 0.1);
+            }
+          }
+        }
+      }
+
+      &:hover .dropdown {
+        display: block;
+      }
+    }
   }
 
+  /* --- Mobile --- */
   .mobile-toggle {
     display: none;
     background: none;
     border: none;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     cursor: pointer;
     color: $primary;
-
-    @media (max-width: 768px) {
-      display: block;
-    }
   }
 
   .mobile-menu {
     display: none;
     flex-direction: column;
-    align-items: stretch;
     gap: 0.75rem;
     padding: 1rem;
     background: white;
@@ -254,20 +224,16 @@ $bg: #ffffff;
       }
 
       &:not(.primary):not(.destructive) {
-        background: rgba($primary, 0.15);
+        background: rgba($primary, 0.1);
         color: $primary;
       }
     }
   }
 
-  // Media queries
+  /* --- Responsive --- */
   @media (max-width: 992px) {
     .container {
-      padding: 0.75rem 1rem;
-      gap: 1rem;
-    }
-    .links {
-      gap: 1.25rem;
+      padding: 0.75rem 1.25rem;
     }
   }
 
@@ -276,53 +242,9 @@ $bg: #ffffff;
     .auth {
       display: none;
     }
-  }
 
-  @media (max-width: 425px) {
-    .container {
-      padding: 0.75rem 1.5rem;
-    }
-    .logo img {
-      height: 42px;
-    }
     .mobile-toggle {
-      font-size: 1.5rem;
-    }
-  }
-
-  @media (max-width: 375px) {
-    .container {
-      padding: 0.75rem 1.25rem;
-    }
-    .mobile-menu {
-      padding: 0.75rem;
-      gap: 0.5rem;
-
-      .mobile-link {
-        font-size: 0.9rem;
-        padding: 0.6rem 0.75rem;
-      }
-    }
-  }
-
-  @media (max-width: 320px) {
-    .container {
-      padding: 0.5rem 1rem;
-    }
-    .logo img {
-      height: 36px;
-    }
-    .mobile-toggle {
-      font-size: 1.3rem;
-    }
-    .mobile-menu {
-      padding: 0.5rem;
-      gap: 0.4rem;
-
-      .mobile-link {
-        font-size: 0.85rem;
-        padding: 0.5rem 0.6rem;
-      }
+      display: block;
     }
   }
 }

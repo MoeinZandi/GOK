@@ -63,13 +63,6 @@ export class LoginComponent {
           }
         );
         this._router.navigate(['/classes'])
-        // snackBarRef.onAction().subscribe(() => {
-        // });
-        // snackBarRef.afterDismissed().subscribe(info => {
-        //   if (!info.dismissedByAction) {
-        //     this.router.navigate(['/classes']);
-        //   }
-        // });
       },
       error: (err) => {
         this._snackBar.open('❌ Invalid username or password!', 'close', {

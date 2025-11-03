@@ -1,65 +1,73 @@
 <mat-toolbar>
   <nav class="navbar">
     <div class="container">
-      <!-- Logo -->
-      <a href="/" class="logo">
-        <img src="logo.png" alt="Galaxy Of Knowledge" />
-      </a>
+      <!-- Left Section (Logo + Links) -->
+      <div class="left-section">
+        <a routerLink="/" class="logo">
+          <img src="logo.png" alt="Galaxy Of Knowledge" />
+        </a>
 
-      <!-- Desktop Links -->
-      <div class="links">
-        <a href="/classes" class="nav-link">📚 Classes</a>
-        <a href="/about" class="nav-link">ℹ️ About</a>
+        <div class="links">
+          <a routerLink="/classes" class="nav-link">📚 Classes</a>
+          <a routerLink="/about" class="nav-link">ℹ️ About</a>
+        </div>
       </div>
 
-      <!-- Auth Section -->
+      <!-- Right Section (Auth) -->
       <div class="auth">
-        <div class="guest">
-          <!-- Sign In / Register -->
-          <a href="/signin" class="btn primary">🔑 Sign In</a>
-          <a href="/register" class="btn primary">✨ Register</a>
-          <!-- Logout under Sign In/Register -->
-        </div>
-        
-        <!-- Optional: User dropdown for desktop -->
-        <div class="user">
-          <div class="avatar-dropdown">
-            <button class="avatar-btn">
-              <img src="maleavatar.png" alt="User Avatar" class="avatar" />
-            </button>
-            <div class="dropdown">
-              <div class="user-info">1
-                <p class="name">John Doe</p>
-                <p class="email">john@example.com</p>
-                <p class="age">30</p>
-                <p class="gender">Male</p>
-              </div>
-              <hr />
-              <a href="/client/src/app/components/profile/profile.html" class="nav-link ghost">👤 Profile</a>
-              <a href="/client/src/app/components/settings/settings.html" class="nav-link primary">⚙️ Settings</a>
-              <hr />
-              <!-- <button class="dropdown-item destructive">🚪 Log out</button> -->
-              <button class="btn destructive">🚪 Log out</button>
+        <!-- Guest (not logged in) -->
+        @if (!isAuthenticated) {
+          <div class="guest">
+            <button class="btn primary" (click)="goTo('/signin')">🔑 Sign In</button>
+            <button class="btn primary" (click)="goTo('/register')">✨ Register</button>
+          </div>
+        }
+
+        <!-- Logged-in User -->
+        @if (isAuthenticated) {
+          <div class="user">
+            <div class="avatar-dropdown">
+              <button class="avatar-btn" (click)="toggleDropdown()">
+                <img [src]="user.avatar" alt="User Avatar" class="avatar" />
+              </button>
+
+              @if (dropdownOpen) {
+                <div class="dropdown">
+                  <div class="user-info">
+                    <p class="name">{{ user.name }}</p>
+                    <p class="email">{{ user.email }}</p>
+                    <p class="age">{{ user.age }}</p>
+                    <p class="gender">{{ user.gender }}</p>
+                  </div>
+
+                  <button class="dropdown-item" (click)="goTo('/profile')">👤 Profile</button>
+                  <button class="dropdown-item" (click)="goTo('/settings')">⚙️ Settings</button>
+                  <hr />
+                  <button class="dropdown-item destructive" (click)="logout()">🚪 Log out</button>
+                </div>
+              }
             </div>
           </div>
-        </div>
+        }
       </div>
 
       <!-- Mobile Menu Toggle -->
-      <button class="mobile-toggle">☰</button>
+      <button class="mobile-toggle" (click)="toggleMobileMenu()">☰</button>
     </div>
 
     <!-- Mobile Menu -->
-    <div class="mobile-menu">
-      <a href="/classes" class="mobile-link">📚 Classes</a>
-      <a href="/about" class="mobile-link">ℹ️ About</a>
-      <a href="/profile" class="mobile-link">👤 Profile</a>
-      <a href="/client/src/app/components/settings/settings.html" class="mobile-link primary">⚙️ Settings</a>
+    <div class="mobile-menu" #mobileMenu [class.open]="isMobileMenuOpen">
+      <a routerLink="/classes" class="mobile-link">📚 Classes</a>
+      <a routerLink="/about" class="mobile-link">ℹ️ About</a>
 
-      <!-- Sign In / Register / Logout stacked -->
-      <a href="/signin" class="mobile-link primary">🔑 Sign In</a>
-      <a href="/register" class="mobile-link primary">✨ Register</a>
-      <button class="mobile-link destructive">🚪 Log out</button>
+      @if (isAuthenticated) {
+        <button class="mobile-link" (click)="goTo('/profile')">👤 Profile</button>
+        <button class="mobile-link primary" (click)="goTo('/settings')">⚙️ Settings</button>
+        <button class="mobile-link destructive" (click)="logout()">🚪 Log out</button>
+      } @else {
+        <button class="mobile-link primary" (click)="goTo('/signin')">🔑 Sign In</button>
+        <button class="mobile-link primary" (click)="goTo('/register')">✨ Register</button>
+      }
     </div>
   </nav>
 </mat-toolbar>

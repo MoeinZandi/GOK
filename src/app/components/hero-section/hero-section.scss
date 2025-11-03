@@ -60,65 +60,46 @@ $bg-light: #f9fafb;
   }
 }
 
-.cta {
-  text-align: center;
-  margin-top: 3rem;
-  padding: 2rem 1rem;
+/* ✅ Unified Button Styles (Top + Bottom) */
+.cta-buttons,
+.top-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0;
 
-  h2 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
+  .btn {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
 
-  p {
-    color: #555;
-    margin-bottom: 2rem;
-  }
+    &.primary {
+      background: $primary;
+      color: white;
 
-  .cta-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1.5rem;   // adds space above buttons
-    margin-bottom: 3rem;  // adds breathing room below buttons
+      &:hover {
+        background: white;
+        color: $primary;
+        border-color: $primary;
+      }
+    }
 
-    .btn {
-      font-size: 1rem;
-      padding: 0.8rem 1.5rem;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
-      cursor: pointer;
+    &.ghost {
+      background: transparent;
+      color: $primary;
+      border: 2px solid $primary;
 
-      &.primary {
+      &:hover {
         background: $primary;
         color: white;
-
-        &:hover {
-          background: white;
-          color: $primary;
-          border-color: $primary;
-        }
-      }
-
-      &.ghost {
-        background: transparent;
-        color: $primary;
-        border: 2px solid $primary;
-
-        &:hover {
-          background: rgba($primary,1);
-          color: white;
-
-        }
       }
     }
   }
 }
-
 
 .stats {
   display: flex;
@@ -192,29 +173,6 @@ $bg-light: #f9fafb;
 .feature-purple { background: rgba(139, 92, 246, 0.05); }
 .feature-orange { background: rgba(249, 115, 22, 0.05); }
 
-.cta {
-  margin-top: 5rem;
-  text-align: center;
-
-  h2 {
-    font-size: 1.75rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-
-  p {
-    color: $text-muted;
-    margin-bottom: 1.5rem;
-  }
-
-  .cta-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-}
-
 .home-search-bar {
   flex: 1;
   display: flex;
@@ -222,41 +180,40 @@ $bg-light: #f9fafb;
   align-items: center;
   margin: 30px auto;
   gap: 10px;
-}
 
-.home-search-bar input {
-  width: 400px;
-  height: 30px;
-  padding: 10px;
-  border-radius: 30px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  background: #f9fafb;
-  font-size: 0.9rem;
+  input {
+    width: 400px;
+    height: 30px;
+    padding: 10px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background: #f9fafb;
+    font-size: 0.9rem;
 
-      &:focus {
-        outline: none;
-        border: 1px solid $primary;
-        box-shadow: 0 0 0 2px rgba($primary, 0.2);
-      }
+    &:focus {
+      outline: none;
+      border: 1px solid $primary;
+      box-shadow: 0 0 0 2px rgba($primary, 0.2);
     }
+  }
 
-.home-search-bar button {
-  background-color: $primary;
-  color: white;
-  font-weight: 600;
-  text-decoration: none;
-  border: 2px solid $primary;
-  border-radius: 30rem;
-  padding: 0.5rem 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 0 0 2px rgba($primary, 0.2);
-}
+  button {
+    background-color: $primary;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid $primary;
+    border-radius: 30rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 0 2px rgba($primary, 0.2);
 
-.home-search-bar button:hover {
-    background: white;
-    color: $primary;
-    border-color: $primary;
+    &:hover {
+      background: white;
+      color: $primary;
+      border-color: $primary;
+    }
+  }
 }

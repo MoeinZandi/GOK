@@ -1,41 +1,49 @@
-import { Component,ElementRef,HostListener,ViewChild,inject} from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api.service';
 import { AccountService } from '../../services/account.service';
-import { Router } from '@angular/router';
 
- @Component({
+@Component({
   selector: 'app-navbar',
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.scss'],
-  imports: [ MatToolbarModule],
-  standalone: true
+  standalone: true,
+  imports: [MatToolbarModule, CommonModule, RouterModule],  // ✅ Add RouterModule
 })
 export class Navbar {
   isAuthenticated = false;
   isMobileMenuOpen = false;
-  searchQuery = '';
-  results: any[] = [];
-  accountservice = inject(AccountService);
+  dropdownOpen = false;
 
+  accountService = inject(AccountService);
   @ViewChild('mobileMenu') mobileMenu!: ElementRef;
 
   constructor(private api: ApiService, private router: Router) {}
-
-  get isHomePage(): boolean {
-    return this.router.url === '/';
-  }
 
   user = {
     name: 'Moein ZANDI',
     email: 'Moein@gmail.com',
     age: '18',
     gender: 'Male',
-    avatar: 'maleavatar.png'
+    avatar: 'maleavatar.png',
   };
+
+  ngOnInit(): void {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      this.user = JSON.parse(storedUser);
+      this.isAuthenticated = true;
+    }
+  }
 
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  toggleDropdown(): void {
+    this.dropdownOpen = !this.dropdownOpen;
   }
 
   @HostListener('document:click', ['$event'])
@@ -43,29 +51,23 @@ export class Navbar {
     const target = event.target as HTMLElement;
     const menu = this.mobileMenu?.nativeElement;
 
-    if (
-      this.isMobileMenuOpen &&
-      menu &&
-      !menu.contains(target) &&
-      !target.closest('.mobile-toggle')
-    ) {
+    if (this.isMobileMenuOpen && menu && !menu.contains(target) && !target.closest('.mobile-toggle')) {
       this.isMobileMenuOpen = false;
     }
-  }
 
-  handleSearch(event: Event): void {
-    event.preventDefault();
-    const query = this.searchQuery.trim();
-    if (query) {
-      window.location.href = `/search?q=${encodeURIComponent(query)}`;
+    if (this.dropdownOpen && !target.closest('.avatar-dropdown')) {
+      this.dropdownOpen = false;
     }
   }
 
-  onSearchInput(value: string): void {
-    this.searchQuery = value;
+  goTo(path: string): void {
+    this.router.navigate([path]);
   }
 
   logout(): void {
-    console.log('Logging out...');
+    localStorage.removeItem('user');
+    this.isAuthenticated = false;
+    this.dropdownOpen = false;
+    this.router.navigate(['/signin']);
   }
 }

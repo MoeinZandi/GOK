@@ -6,54 +6,36 @@
         <p>Create your account and start your learning journey today</p>
       </div>
 
-      <mat-stepper [linear]="isLinear" #stepper>
+      <mat-horizontal-stepper [linear]="isLinear" #stepper>
         <!-- STEP 1 -->
         <mat-step [stepControl]="FirstFg">
           <form [formGroup]="FirstFg">
-            <ng-template matStepLabel>Personal Details</ng-template>
+            <ng-template matStepLabel>Personal Information</ng-template>
 
             <mat-form-field appearance="fill">
               <mat-label>User Name</mat-label>
-              <input
-                matInput
-                placeholder="UserName"
-                formControlName="userNameCtrl"
-                required
-              />
+              <input matInput formControlName="userNameCtrl" placeholder="UserName" required />
             </mat-form-field>
 
             <mat-form-field appearance="fill">
               <mat-label>Email</mat-label>
-              <input
-                matInput
-                placeholder="Email"
-                formControlName="emailCtrl"
-                required
-              />
+              <input matInput formControlName="emailCtrl" placeholder="Email" required />
             </mat-form-field>
 
             <mat-form-field appearance="fill">
               <mat-label>Password</mat-label>
-              <input
-                matInput
-                type="password"
-                formControlName="passwordCtrl"
-                required
-              />
+              <input matInput type="password" formControlName="passwordCtrl" required />
             </mat-form-field>
 
             <mat-form-field appearance="fill">
               <mat-label>Confirm Password</mat-label>
-              <input
-                matInput
-                type="password"
-                formControlName="confirmPasswordCtrl"
-                required
-              />
+              <input matInput type="password" formControlName="confirmPasswordCtrl" required />
             </mat-form-field>
 
             <div>
-              <button mat-button matStepperNext class="btn">Next</button>
+              <button mat-flat-button color="primary" matStepperNext [disabled]="FirstFg.invalid">
+                Next
+              </button>
             </div>
           </form>
         </mat-step>
@@ -61,17 +43,12 @@
         <!-- STEP 2 -->
         <mat-step [stepControl]="SecondFg">
           <form [formGroup]="SecondFg">
-            <ng-template matStepLabel>Extra Details</ng-template>
+            <ng-template matStepLabel>Extra Information</ng-template>
 
             <!-- Age -->
             <mat-form-field appearance="fill">
               <mat-label>Age</mat-label>
-              <input
-                matInput
-                formControlName="ageCtrl"
-                placeholder="1–99"
-                required
-              />
+              <input matInput type="number" formControlName="ageCtrl" placeholder="1–99" required />
             </mat-form-field>
 
             <!-- Gender -->
@@ -91,72 +68,64 @@
               </mat-autocomplete>
             </mat-form-field>
 
-<!-- Country -->
-<mat-form-field appearance="fill">
-  <mat-label>Country</mat-label>
-  <mat-select
-    formControlName="countryCtrl"
-    (change)="onCountryChange($event)"
-  >
-    <option value="">-- Select Country --</option>
-    @for (country of countries; track country.isoCode) {
-      <mat-option [value]="country.isoCode">{{ country.name }}</mat-option>
-    }
-  </mat-select>
-</mat-form-field>
+            <!-- Country -->
+            <mat-form-field appearance="fill">
+              <mat-label>Country</mat-label>
+              <mat-select formControlName="countryCtrl" (selectionChange)="onCountryChange($event)">
+                @for (country of countries; track country.isoCode) {
+                  <mat-option [value]="country.isoCode">{{ country.name }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
 
-<!-- State -->
-<mat-form-field appearance="fill">
-  <mat-label>State</mat-label>
-  <mat-select
-    formControlName="stateCtrl"
-    (change)="onStateChange($event)"
-  >
-    <option value="">-- Select State --</option>
-    @for (state of states; track state.isoCode) {
-      <mat-option [value]="state.isoCode">{{ state.name }}</mat-option>
-    }
-  </mat-select>
-</mat-form-field>
+            <!-- State -->
+            <mat-form-field appearance="fill">
+              <mat-label>State</mat-label>
+              <mat-select formControlName="stateCtrl" (selectionChange)="onStateChange($event)">
+                @for (state of states; track state.isoCode) {
+                  <mat-option [value]="state.isoCode">{{ state.name }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
 
-<!-- City -->
-<mat-form-field appearance="fill">
-  <mat-label>City</mat-label>
-  <mat-select formControlName="cityCtrl">
-    <mat-option value="">-- Select City --</mat-option>
-    @for (city of cities; track city.name) {
-      <option [value]="city.name">{{ city.name }}</option>
-    }
-  </mat-select>
-</mat-form-field>
-
+            <!-- City -->
+            <mat-form-field appearance="fill">
+              <mat-label>City</mat-label>
+              <mat-select formControlName="cityCtrl">
+                @for (city of cities; track city.name) {
+                  <mat-option [value]="city.name">{{ city.name }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
 
             <div>
-              <button mat-button matStepperPrevious class="btn">Back</button>
-              <button mat-button matStepperNext class="btn">Next</button>
+              <button mat-stroked-button matStepperPrevious>Back</button>
+              <button mat-flat-button color="primary" matStepperNext [disabled]="SecondFg.invalid">
+                Next
+              </button>
             </div>
           </form>
         </mat-step>
 
         <!-- STEP 3 -->
         <mat-step>
-          <ng-template matStepLabel>Done</ng-template>
-          <p>You are now done.</p>
-          <div>
-            <button
-              mat-button
-              routerLink="classes"
-              (click)="register()"
-            >
-              Register
-            </button>
+          <ng-template matStepLabel>Confirmation</ng-template>
+
+          <p><strong>Name:</strong> {{ UserNameCtrl.value }}</p>
+          <p><strong>Email:</strong> {{ EmailCtrl.value }}</p>
+          <p><strong>Country:</strong> {{ CountryCtrl.value }}</p>
+          <p><strong>City:</strong> {{ CityCtrl.value }}</p>
+
+          <div class="actions">
+            <button mat-stroked-button matStepperPrevious>Back</button>
+            <button mat-flat-button color="accent" (click)="register()">Register</button>
           </div>
         </mat-step>
-      </mat-stepper>
+      </mat-horizontal-stepper>
 
       <div class="signin-text">
         Already have an account?
-        <a href="/signin" class="link">Sign in here</a>
+        <a routerLink="/signin" class="link">Sign in here</a>
       </div>
     </div>
   </main>

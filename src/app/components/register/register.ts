@@ -7,15 +7,29 @@ import {
   Validators,
 } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
-import { RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { AppUser } from '../../models/app-user.model';
 import { LoggedInUser } from '../../models/logged-in.model';
-import { MatFormFieldModule} from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { AsyncPipe } from '@angular/common';
+import {
+  MatFormFieldModule
+} from '@angular/material/form-field';
+import {
+  MatInputModule
+} from '@angular/material/input';
+import {
+  MatStepperModule
+} from '@angular/material/stepper';
+import {
+  MatAutocompleteModule
+} from '@angular/material/autocomplete';
+import {
+  MatSelectModule
+} from '@angular/material/select';
+import {
+  MatButtonModule
+} from '@angular/material/button';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Country, State, City, ICountry, IState, ICity } from 'country-state-city';
 
 @Component({
@@ -30,14 +44,18 @@ import { Country, State, City, ICountry, IState, ICity } from 'country-state-cit
     MatFormFieldModule,
     MatStepperModule,
     MatAutocompleteModule,
+    MatSelectModule,
+    MatButtonModule,
     AsyncPipe,
+    CommonModule,
   ],
   templateUrl: './register.html',
   styleUrls: ['./register.scss'],
 })
 export class RegisterComponent implements OnInit {
-  accountService = inject(AccountService);
-  fB = inject(FormBuilder);
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private accountService = inject(AccountService);
 
   /** Gender options */
   options: string[] = ['Male', 'Female', 'Others'];
@@ -56,14 +74,14 @@ export class RegisterComponent implements OnInit {
   error?: string;
 
   /** Stepper form groups */
-  FirstFg = this.fB.group({
+  FirstFg = this.fb.group({
     userNameCtrl: ['', Validators.required],
     emailCtrl: ['', [Validators.required, Validators.email]],
     passwordCtrl: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
     confirmPasswordCtrl: ['', Validators.required],
   });
 
-  SecondFg = this.fB.group({
+  SecondFg = this.fb.group({
     ageCtrl: ['', [Validators.required, Validators.min(1), Validators.max(99)]],
     genderCtrl: ['', Validators.required],
     countryCtrl: ['', Validators.required],
@@ -72,9 +90,9 @@ export class RegisterComponent implements OnInit {
     avatarCtrl: [''],
   });
 
-  isLinear = false;
+  isLinear = true;
 
-  /** Getters */
+  /** Getters for controls */
   get UserNameCtrl(): FormControl { return this.FirstFg.get('userNameCtrl') as FormControl; }
   get EmailCtrl(): FormControl { return this.FirstFg.get('emailCtrl') as FormControl; }
   get PasswordCtrl(): FormControl { return this.FirstFg.get('passwordCtrl') as FormControl; }
@@ -95,46 +113,60 @@ export class RegisterComponent implements OnInit {
 
   private _filterGender(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.options.filter(option =>
+      option.toLowerCase().includes(filterValue)
+    );
   }
 
-  onCountryChange(event: Event): void {
-  const select = event.target as HTMLSelectElement;
-  const code = select.value;
-    
+  onCountryChange(event: any): void {
+    const code = event.value;
     if (!code) return;
     this.selectedCountryCode = code;
     this.states = State.getStatesOfCountry(code);
     this.cities = [];
   }
 
-  onStateChange(event: Event ): void {
-    const select = event.target as HTMLSelectElement;
-    const code = select.value;  
-
+  onStateChange(event: any): void {
+    const code = event.value;
     if (!code || !this.selectedCountryCode) return;
     this.selectedStateCode = code;
     this.loadingCities = true;
+
+    setTimeout(() => {
+      this.cities = City.getCitiesOfState(this.selectedCountryCode, code);
+      this.loadingCities = false;
+    }, 400);
   }
 
+  /** ✅ Register logic (fixed + connected with AccountService) */
   register(): void {
+    if (this.FirstFg.invalid || this.SecondFg.invalid) {
+      this.error = 'Please complete all required fields.';
+      return;
+    }
+
     const userInput: AppUser = {
-      userName: this.UserNameCtrl.value,
-      email: this.EmailCtrl.value,
-      age: this.AgeCtrl.value,
-      Gender: this.GenderCtrl.value,
-      City: this.CityCtrl.value,
-      country: this.CountryCtrl.value,
-      password: this.PasswordCtrl.value,
-      confirmPassword: this.ConfirmPasswordCtrl.value,
-      avatar: this.AvatarCtrl.value,
+      userName: this.UserNameCtrl.value!,
+      email: this.EmailCtrl.value!,
+      age: this.AgeCtrl.value!,
+      Gender: this.GenderCtrl.value!,
+      City: this.CityCtrl.value!,
+      country: this.CountryCtrl.value!,
+      password: this.PasswordCtrl.value!,
+      confirmPassword: this.ConfirmPasswordCtrl.value!,
+      avatar: this.AvatarCtrl.value || undefined,
     };
 
-    const response$: Observable<LoggedInUser | null> = this.accountService.register(userInput);
-
-    response$.subscribe({
-      next: res => this.userResponse = res,
-      error: err => this.error = err.error,
+    this.accountService.register(userInput).subscribe({
+      next: (res) => {
+        this.userResponse = res;
+        this.error = undefined;
+        this.router.navigate(['/classes']); // ✅ Navigate to classes after success
+      },
+      error: (err) => {
+        console.error('❌ Registration failed', err);
+        this.error = err?.error || 'Registration failed. Please try again.';
+      },
     });
   }
 }
