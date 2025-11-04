@@ -1,58 +1,32 @@
 import { Component, inject, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { AppUser } from '../../models/app-user.model';
 import { LoggedInUser } from '../../models/logged-in.model';
-import {
-  MatFormFieldModule
-} from '@angular/material/form-field';
-import {
-  MatInputModule
-} from '@angular/material/input';
-import {
-  MatStepperModule
-} from '@angular/material/stepper';
-import {
-  MatAutocompleteModule
-} from '@angular/material/autocomplete';
-import {
-  MatSelectModule
-} from '@angular/material/select';
-import {
-  MatButtonModule
-} from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {MatSelectModule} from '@angular/material/select';
+import {MatButtonModule} from '@angular/material/button';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Country, State, City, ICountry, IState, ICity } from 'country-state-city';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [
-    RouterModule,
-    RouterLink,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatStepperModule,
-    MatAutocompleteModule,
-    MatSelectModule,
-    MatButtonModule,
-    AsyncPipe,
-    CommonModule,
+  imports: [RouterModule, RouterLink, NgxCaptchaModule, FormsModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatStepperModule, MatAutocompleteModule, MatSelectModule, MatButtonModule, AsyncPipe, CommonModule,
   ],
   templateUrl: './register.html',
   styleUrls: ['./register.scss'],
 })
 export class RegisterComponent implements OnInit {
+onCaptchaResolved($event: Event) {
+throw new Error('Method not implemented.');
+}
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private accountService = inject(AccountService);
@@ -75,18 +49,19 @@ export class RegisterComponent implements OnInit {
 
   /** Stepper form groups */
   FirstFg = this.fb.group({
-    userNameCtrl: ['', Validators.required],
+    userNameCtrl: ['', Validators.required, Validators.minLength(3), Validators.maxLength(12)],
     emailCtrl: ['', [Validators.required, Validators.email]],
-    passwordCtrl: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
+    passwordCtrl: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]],
     confirmPasswordCtrl: ['', Validators.required],
   });
 
   SecondFg = this.fb.group({
     ageCtrl: ['', [Validators.required, Validators.min(1), Validators.max(99)]],
+    phoneNumberCtrl: ['', [Validators.required]],
     genderCtrl: ['', Validators.required],
     countryCtrl: ['', Validators.required],
-    stateCtrl: [''],
-    cityCtrl: [''],
+    stateCtrl: ['', Validators.required],
+    cityCtrl: ['', Validators.required],
     avatarCtrl: [''],
   });
 
@@ -98,6 +73,7 @@ export class RegisterComponent implements OnInit {
   get PasswordCtrl(): FormControl { return this.FirstFg.get('passwordCtrl') as FormControl; }
   get ConfirmPasswordCtrl(): FormControl { return this.FirstFg.get('confirmPasswordCtrl') as FormControl; }
   get AgeCtrl(): FormControl { return this.SecondFg.get('ageCtrl') as FormControl; }
+  get PhoneNumberCtrl(): FormControl { return this.SecondFg.get('phoneNumberCtrl') as FormControl; }
   get GenderCtrl(): FormControl { return this.SecondFg.get('genderCtrl') as FormControl; }
   get CountryCtrl(): FormControl { return this.SecondFg.get('countryCtrl') as FormControl; }
   get StateCtrl(): FormControl { return this.SecondFg.get('stateCtrl') as FormControl; }
@@ -149,12 +125,13 @@ export class RegisterComponent implements OnInit {
       userName: this.UserNameCtrl.value!,
       email: this.EmailCtrl.value!,
       age: this.AgeCtrl.value!,
-      Gender: this.GenderCtrl.value!,
-      City: this.CityCtrl.value!,
+      phoneNumber: this.PhoneNumberCtrl.value!,
+      gender: this.GenderCtrl.value!,
+      city: this.CityCtrl.value!,
       country: this.CountryCtrl.value!,
       password: this.PasswordCtrl.value!,
       confirmPassword: this.ConfirmPasswordCtrl.value!,
-      avatar: this.AvatarCtrl.value || undefined,
+      avatar: this.AvatarCtrl.value!,
     };
 
     this.accountService.register(userInput).subscribe({

@@ -10,10 +10,10 @@ $bg: #ffffff;
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.027);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid $border;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.171);
 
   .container {
     display: flex;

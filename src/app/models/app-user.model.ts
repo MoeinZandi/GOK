@@ -2,10 +2,12 @@ export interface AppUser {
     userName: string;
     email: string;
     age: number;
-    Gender: string;
-    City: string;
+    phoneNumber: string;
+    gender: string;
+    city: string;
     country: string;
     password: string;
     confirmPassword: string;
-    avatar: string | undefined
+    avatar: string | undefined;
+    // captchaToken: string;
 }

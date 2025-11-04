@@ -29,8 +29,8 @@ export class LoginComponent {
 
   //#region loginFg
   loginFg = this.fB.group({
-    userNameCtrl: ['', [Validators.required]],
-    passwordCtrl: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]]
+    userNameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
+    passwordCtrl: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]]
   });
 
   get UserNameCtrl(): FormControl {
