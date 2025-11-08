@@ -8,7 +8,6 @@ $bg: #fafafa;
   min-height: 100vh;
   background-color: $bg;
   padding: $page-padding;
-  gap: 100px;
 
   .header {
     text-align: center;
@@ -54,7 +53,6 @@ $bg: #fafafa;
       width: 100%;
       height: 200px;
       object-fit: cover;
-      display: block;
     }
 
     .card-body {
@@ -131,6 +129,39 @@ $bg: #fafafa;
           color: $primary;
           border: 2px solid $primary;
         }
+      }
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+
+    .btn-outline {
+      padding: 0.5rem 0.8rem;
+      border: 1px solid $border;
+      background: #fff;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+
+      &:hover:not(:disabled) {
+        background: $primary;
+        color: #fff;
+        border-color: $primary;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      &.active {
+        background: $primary;
+        color: #fff;
+        border-color: $primary;
       }
     }
   }

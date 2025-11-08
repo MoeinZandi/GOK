@@ -1,55 +1,55 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { map, Observable, startWith } from 'rxjs';
-import { Router, RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { AppUser } from '../../models/app-user.model';
 import { LoggedInUser } from '../../models/logged-in.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import {MatSelectModule} from '@angular/material/select';
-import {MatButtonModule} from '@angular/material/button';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
 import { Country, State, City, ICountry, IState, ICity } from 'country-state-city';
 import { NgxCaptchaModule } from 'ngx-captcha';
+
+interface Role {
+  id: 'student' | 'teacher' | 'admin';
+  title: string;
+  icon: string;
+  description: string;
+  benefits: string[];
+}
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterModule, RouterLink, NgxCaptchaModule, FormsModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatStepperModule, MatAutocompleteModule, MatSelectModule, MatButtonModule, AsyncPipe, CommonModule,
+  imports: [
+    RouterModule, FormsModule, ReactiveFormsModule,
+    MatInputModule, MatFormFieldModule, MatStepperModule,
+    MatButtonModule, MatSelectModule, CommonModule, NgxCaptchaModule
   ],
   templateUrl: './register.html',
   styleUrls: ['./register.scss'],
 })
 export class RegisterComponent implements OnInit {
-onCaptchaResolved($event: Event) {
-throw new Error('Method not implemented.');
-}
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private accountService = inject(AccountService);
 
-  /** Gender options */
-  options: string[] = ['Male', 'Female', 'Others'];
-  filteredOptions?: Observable<string[]>;
+  isLinear = true;
 
-  /** Country/state/city data */
-  countries: ICountry[] = Country.getAllCountries();
-  states: IState[] = [];
-  cities: ICity[] = [];
+  // Role Selection
+  selectedRole: 'student' | 'teacher' | 'admin' | null = null;
+  roles: Role[] = [
+    { id: 'student', title: 'Student', icon: '🎓', description: 'Learn from expert-led courses', benefits: ['Access all courses','Track progress','Earn certificates'] },
+    { id: 'teacher', title: 'Teacher', icon: '👨‍🏫', description: 'Share knowledge with learners', benefits: ['Create courses','Manage students','Earn revenue'] },
+    { id: 'admin', title: 'Admin', icon: '⚙️', description: 'Manage the platform', benefits: ['Full access','User management','Analytics dashboard'] },
+  ];
 
-  selectedCountryCode = '';
-  selectedStateCode = '';
-  loadingCities = false;
-
-  userResponse?: LoggedInUser | null;
-  error?: string;
-
-  /** Stepper form groups */
+  // Stepper Forms
   FirstFg = this.fb.group({
-    userNameCtrl: ['', Validators.required, Validators.minLength(3), Validators.maxLength(12)],
+    userNameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
     emailCtrl: ['', [Validators.required, Validators.email]],
     passwordCtrl: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]],
     confirmPasswordCtrl: ['', Validators.required],
@@ -57,43 +57,33 @@ throw new Error('Method not implemented.');
 
   SecondFg = this.fb.group({
     ageCtrl: ['', [Validators.required, Validators.min(1), Validators.max(99)]],
-    phoneNumberCtrl: ['', [Validators.required]],
+    phoneNumberCtrl: ['', Validators.required],
     genderCtrl: ['', Validators.required],
     countryCtrl: ['', Validators.required],
     stateCtrl: ['', Validators.required],
     cityCtrl: ['', Validators.required],
     avatarCtrl: [''],
+    expertiseCtrl: [''],
+    adminCodeCtrl: [''],
   });
 
-  isLinear = true;
+  /** Country/State/City */
+  countries: ICountry[] = Country.getAllCountries();
+  states: IState[] = [];
+  cities: ICity[] = [];
+  selectedCountryCode = '';
+  selectedStateCode = '';
+  loadingCities = false;
 
-  /** Getters for controls */
-  get UserNameCtrl(): FormControl { return this.FirstFg.get('userNameCtrl') as FormControl; }
-  get EmailCtrl(): FormControl { return this.FirstFg.get('emailCtrl') as FormControl; }
-  get PasswordCtrl(): FormControl { return this.FirstFg.get('passwordCtrl') as FormControl; }
-  get ConfirmPasswordCtrl(): FormControl { return this.FirstFg.get('confirmPasswordCtrl') as FormControl; }
-  get AgeCtrl(): FormControl { return this.SecondFg.get('ageCtrl') as FormControl; }
-  get PhoneNumberCtrl(): FormControl { return this.SecondFg.get('phoneNumberCtrl') as FormControl; }
-  get GenderCtrl(): FormControl { return this.SecondFg.get('genderCtrl') as FormControl; }
-  get CountryCtrl(): FormControl { return this.SecondFg.get('countryCtrl') as FormControl; }
-  get StateCtrl(): FormControl { return this.SecondFg.get('stateCtrl') as FormControl; }
-  get CityCtrl(): FormControl { return this.SecondFg.get('cityCtrl') as FormControl; }
-  get AvatarCtrl(): FormControl { return this.SecondFg.get('avatarCtrl') as FormControl; }
+  /** Gender options */
+  options: string[] = ['Male', 'Female', 'Others', 'Rather not say'];
 
-  ngOnInit() {
-    this.filteredOptions = this.GenderCtrl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterGender(value || ''))
-    );
-  }
+  userResponse?: LoggedInUser | null;
+  error?: string;
 
-  private _filterGender(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option =>
-      option.toLowerCase().includes(filterValue)
-    );
-  }
+  ngOnInit() {}
 
+  // Country/State change handlers
   onCountryChange(event: any): void {
     const code = event.value;
     if (!code) return;
@@ -107,14 +97,21 @@ throw new Error('Method not implemented.');
     if (!code || !this.selectedCountryCode) return;
     this.selectedStateCode = code;
     this.loadingCities = true;
-
     setTimeout(() => {
       this.cities = City.getCitiesOfState(this.selectedCountryCode, code);
       this.loadingCities = false;
     }, 400);
   }
 
-  /** ✅ Register logic (fixed + connected with AccountService) */
+  // Role selection
+  chooseRole(role: 'student' | 'teacher' | 'admin') {
+    this.selectedRole = role;
+  }
+  resetRole() {
+    this.selectedRole = null;
+  }
+
+  // Register
   register(): void {
     if (this.FirstFg.invalid || this.SecondFg.invalid) {
       this.error = 'Please complete all required fields.';
@@ -138,12 +135,26 @@ throw new Error('Method not implemented.');
       next: (res) => {
         this.userResponse = res;
         this.error = undefined;
-        this.router.navigate(['/classes']); // ✅ Navigate to classes after success
+        this.router.navigate(['/classes']);
       },
       error: (err) => {
-        console.error('❌ Registration failed', err);
         this.error = err?.error || 'Registration failed. Please try again.';
       },
     });
   }
+
+  // Getters
+  get UserNameCtrl(): FormControl { return this.FirstFg.get('userNameCtrl') as FormControl; }
+  get EmailCtrl(): FormControl { return this.FirstFg.get('emailCtrl') as FormControl; }
+  get PasswordCtrl(): FormControl { return this.FirstFg.get('passwordCtrl') as FormControl; }
+  get ConfirmPasswordCtrl(): FormControl { return this.FirstFg.get('confirmPasswordCtrl') as FormControl; }
+  get AgeCtrl(): FormControl { return this.SecondFg.get('ageCtrl') as FormControl; }
+  get PhoneNumberCtrl(): FormControl { return this.SecondFg.get('phoneNumberCtrl') as FormControl; }
+  get GenderCtrl(): FormControl { return this.SecondFg.get('genderCtrl') as FormControl; }
+  get CountryCtrl(): FormControl { return this.SecondFg.get('countryCtrl') as FormControl; }
+  get StateCtrl(): FormControl { return this.SecondFg.get('stateCtrl') as FormControl; }
+  get CityCtrl(): FormControl { return this.SecondFg.get('cityCtrl') as FormControl; }
+  get AvatarCtrl(): FormControl { return this.SecondFg.get('avatarCtrl') as FormControl; }
+  get ExpertiseCtrl(): FormControl { return this.SecondFg.get('expertiseCtrl') as FormControl; }
+  get AdminCodeCtrl(): FormControl { return this.SecondFg.get('adminCodeCtrl') as FormControl; }
 }

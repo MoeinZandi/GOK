@@ -1,1 +1,146 @@
-<p>profile works!</p>
+<div class="page">
+  <header class="header">
+    <h1>Profile</h1>
+    <p>Welcome to your learning dashboard!</p>
+  </header>
+
+  <div class="grid lg:grid-cols-3 gap-6">
+    <!-- Left Sidebar -->
+    <div class="lg:col-span-1 space-y-6">
+      <!-- Profile Card -->
+      <div class="card">
+        <div class="card-content text-center">
+          <div class="avatar mb-4">
+            <img src="{{ user.avatar }}" alt="{{ user.name }}" class="rounded-full w-32 h-32" />
+          </div>
+          <h2 class="text-2xl font-bold mb-1">{{ user.name }}</h2>
+          <p class="text-muted mb-4">{{ user.email }}</p>
+          <div class="flex justify-center gap-2 mb-4">
+            <button class="btn-outline">Edit Profile</button>
+            <button class="btn-outline">Share</button>
+          </div>
+          <div class="separator mb-4"></div>
+          <div class="text-left space-y-2">
+            <div class="flex gap-2 text-sm"><span>📍</span><span class="text-muted">{{ user.location }}</span></div>
+            <div class="flex gap-2 text-sm"><span>📅</span><span class="text-muted">Joined {{ user.joinDate }}</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills Card -->
+      <div class="card">
+        <div class="card-header"><h3>Skills</h3></div>
+        <div class="card-content flex flex-wrap gap-2">
+          <span class="badge">React</span>
+          <span class="badge">JavaScript</span>
+          <span class="badge">Python</span>
+          <span class="badge">Data Analysis</span>
+          <span class="badge">Digital Marketing</span>
+          <span class="badge">SEO</span>
+          <span class="badge">UI/UX Design</span>
+          <span class="badge">Cloud Computing</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Content -->
+    <div class="lg:col-span-2 space-y-6">
+      <!-- About -->
+      <div class="card">
+        <div class="card-header"><h3>About</h3></div>
+        <div class="card-content">
+          <p class="text-muted">{{ user.bio }}</p>
+        </div>
+      </div>
+
+      <!-- Learning Stats -->
+      <div class="card">
+        <div class="card-header"><h3>Learning Statistics</h3><p>Your learning journey at a glance</p></div>
+        <div class="card-content grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="stat-card text-center border rounded-lg p-4">12<br/><span class="text-muted">Courses Enrolled</span></div>
+          <div class="stat-card text-center border rounded-lg p-4">8<br/><span class="text-muted">Courses Completed</span></div>
+          <div class="stat-card text-center border rounded-lg p-4">5<br/><span class="text-muted">Certificates Earned</span></div>
+          <div class="stat-card text-center border rounded-lg p-4">156<br/><span class="text-muted">Learning Hours</span></div>
+        </div>
+      </div>
+
+      <!-- Current Courses -->
+      <div class="card">
+        <div class="card-header"><h3>Current Courses</h3><p>Continue where you left off</p></div>
+        <div class="card-content space-y-4">
+          <!-- Course 1 -->
+          <div class="course-card border rounded-lg p-4 flex gap-4">
+            <img src="/react-javascript-development.jpg" alt="Advanced React Development" class="w-20 h-20 rounded-lg object-cover" />
+            <div class="flex-1 min-w-0">
+              <h4 class="font-semibold mb-1">Advanced React Development</h4>
+              <p class="text-sm text-muted mb-2">by Alex Thompson</p>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-muted">Progress</span><span class="font-medium">75%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div>
+            </div>
+          </div>
+
+          <!-- Course 2 -->
+          <div class="course-card border rounded-lg p-4 flex gap-4">
+            <img src="/data-science-python-charts.jpg" alt="Data Science with Python" class="w-20 h-20 rounded-lg object-cover" />
+            <div class="flex-1 min-w-0">
+              <h4 class="font-semibold mb-1">Data Science with Python</h4>
+              <p class="text-sm text-muted mb-2">by Dr. Michael Chen</p>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-muted">Progress</span><span class="font-medium">45%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 45%;"></div></div>
+            </div>
+          </div>
+
+          <!-- Course 3 -->
+          <div class="course-card border rounded-lg p-4 flex gap-4">
+            <img src="/digital-marketing-social-media.png" alt="Digital Marketing Fundamentals" class="w-20 h-20 rounded-lg object-cover" />
+            <div class="flex-1 min-w-0">
+              <h4 class="font-semibold mb-1">Digital Marketing Fundamentals</h4>
+              <p class="text-sm text-muted mb-2">by Emma Rodriguez</p>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-muted">Progress</span><span class="font-medium">90%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+            </div>
+          </div>
+
+          <button class="btn-outline w-full">Browse More Courses</button>
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="card">
+        <div class="card-header"><h3>Achievements</h3><p>Milestones you've unlocked</p></div>
+        <div class="card-content grid sm:grid-cols-2 gap-4">
+          <div class="achievement-card flex items-center gap-3 p-4 border rounded-lg">🎓
+            <div>
+              <p class="font-medium">First Course Completed</p>
+              <p class="text-sm text-muted">Feb 2024</p>
+            </div>
+          </div>
+          <div class="achievement-card flex items-center gap-3 p-4 border rounded-lg">🏆
+            <div>
+              <p class="font-medium">5 Courses Milestone</p>
+              <p class="text-sm text-muted">Mar 2024</p>
+            </div>
+          </div>
+          <div class="achievement-card flex items-center gap-3 p-4 border rounded-lg">⏰
+            <div>
+              <p class="font-medium">100 Hours Learning</p>
+              <p class="text-sm text-muted">Apr 2024</p>
+            </div>
+          </div>
+          <div class="achievement-card flex items-center gap-3 p-4 border rounded-lg">⭐
+            <div>
+              <p class="font-medium">Top Performer</p>
+              <p class="text-sm text-muted">May 2024</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

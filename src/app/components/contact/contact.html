@@ -1,0 +1,100 @@
+<div class="page">
+  <header class="header">
+    <h1>{{ t('contactTitle') }}</h1>
+    <p>{{ t('contactDescription') }}</p>
+  </header>
+
+  <div class="grid lg:grid-cols-3 gap-8">
+    <!-- Contact Form -->
+    <div class="card lg:col-span-2">
+      <div class="card-header">
+        <div class="card-title">{{ t('contactFormTitle') }}</div>
+        <div class="card-description">
+          Fill out the form below and we'll get back to you within 24 hours.
+        </div>
+      </div>
+      <div class="card-content">
+        <form (submit)="handleSubmit($event)" class="space-y-6">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="form-group">
+              <label for="name">{{ t('fullName') }}</label>
+              <input id="name" placeholder="John Doe" required />
+            </div>
+            <div class="form-group">
+              <label for="email">{{ t('email') }}</label>
+              <input id="email" type="email" placeholder="john@example.com" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">{{ t('subject') }}</label>
+            <input id="subject" placeholder="How can we help you?" required />
+          </div>
+
+          <div class="form-group">
+            <label for="message">{{ t('message') }}</label>
+            <textarea
+              id="message"
+              placeholder="Tell us more about your inquiry..."
+              rows="6"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn">
+            <span>📤</span>
+            {{ t('sendMessage') }}
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="space-y-6">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">{{ t('contactInfo') }}</div>
+        </div>
+        <div class="card-content space-y-4">
+          <div class="flex items-start space-x-3">
+            <span>📧</span>
+            <div>
+              <p class="font-medium">{{ t('emailAddress') }}</p>
+              <a href="mailto:info@gok.com" class="text-muted">info@gok.com</a>
+            </div>
+          </div>
+
+          <div class="flex items-start space-x-3">
+            <span>📞</span>
+            <div>
+              <p class="font-medium">{{ t('phone') }}</p>
+              <a href="tel:+1234567890" class="text-muted">+1 (234) 567-890</a>
+            </div>
+          </div>
+
+          <div class="flex items-start space-x-3">
+            <span>📍</span>
+            <div>
+              <p class="font-medium">{{ t('address') }}</p>
+              <p class="text-muted">
+                123 Knowledge Street<br />
+                Learning City, LC 12345
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">{{ t('followUs') }}</div>
+        </div>
+        <div class="card-content flex space-x-4">
+          <a href="#" aria-label="Twitter" class="text-muted hover:text-primary">🐦</a>
+          <a href="#" aria-label="LinkedIn" class="text-muted hover:text-primary">💼</a>
+          <a href="#" aria-label="Facebook" class="text-muted hover:text-primary">📘</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component , OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { AboutService } from '../../services/about.service';
 
 @Component({
@@ -23,6 +23,10 @@ export class AboutComponent implements OnInit {
   @HostListener('window:scroll', [])
   onScroll(): void {
     this.showScroll = window.scrollY > 300;
+    const scrollButton = document.querySelector('.scroll-top') as HTMLElement;
+    if (scrollButton) {
+      scrollButton.style.display = this.showScroll ? 'block' : 'none';
+    }
   }
 
   scrollToTop(): void {

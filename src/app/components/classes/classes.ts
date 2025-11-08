@@ -3,23 +3,27 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-classes',
   templateUrl: './classes.html',
-  styleUrls: ['./classes.scss']
+  styleUrls: ['./classes.scss'],
 })
 export class ClassesComponent {
   isAuthenticated = false;
   user: any = undefined;
-  
+
+  currentPage = 1;
+  itemsPerPage = 6;
+
   classes = [
     {
       id: 1,
       title: 'Introduction to Web Development',
       instructor: 'Sarah Johnson',
-      description: 'Learn the fundamentals of HTML, CSS, and JavaScript to build your first website.',
+      description:
+        'Learn the fundamentals of HTML, CSS, and JavaScript to build your first website.',
       duration: '8 weeks',
       students: 1247,
       rating: 4.8,
       level: 'Beginner',
-      image: 'web-development-coding.png'
+      image: 'web-development-coding.png',
     },
     {
       id: 2,
@@ -30,7 +34,7 @@ export class ClassesComponent {
       students: 892,
       rating: 4.9,
       level: 'Intermediate',
-      image: 'data-science-python-charts.jpg'
+      image: 'data-science-python-charts.jpg',
     },
     {
       id: 3,
@@ -41,29 +45,31 @@ export class ClassesComponent {
       students: 2156,
       rating: 4.7,
       level: 'Beginner',
-      image: 'digital-marketing-social-media.png'
+      image: 'digital-marketing-social-media.png',
     },
     {
       id: 4,
       title: 'Advanced React Development',
       instructor: 'Alex Thompson',
-      description: 'Deep dive into React hooks, context, and advanced patterns for scalable applications.',
+      description:
+        'Deep dive into React hooks, context, and advanced patterns for scalable applications.',
       duration: '10 weeks',
       students: 634,
       rating: 4.9,
       level: 'Advanced',
-      image: 'react-javascript-development.jpg'
+      image: 'react-javascript-development.jpg',
     },
     {
       id: 5,
       title: 'UX/UI Design Principles',
       instructor: 'Lisa Park',
-      description: 'Create user-centered designs with modern tools and design thinking methodologies.',
+      description:
+        'Create user-centered designs with modern tools and design thinking methodologies.',
       duration: '8 weeks',
       students: 1089,
       rating: 4.8,
       level: 'Intermediate',
-      image: 'ui-ux-wireframes.png'
+      image: 'ui-ux-wireframes.png',
     },
     {
       id: 6,
@@ -74,11 +80,41 @@ export class ClassesComponent {
       students: 567,
       rating: 4.6,
       level: 'Advanced',
-      image: 'cloud-computing-aws-servers.jpg'
-    }
+      image: 'cloud-computing-aws-servers.jpg',
+    },
+    // Add more classes if needed
   ];
+
+  get totalPages(): number {
+    return Math.ceil(this.classes.length / this.itemsPerPage);
+  }
+
+  get paginatedClasses() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.classes.slice(start, end);
+  }
+
+  goToPage(page: number): void {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   enroll(courseTitle: string): void {
     alert(`You have enrolled in: ${courseTitle}`);
+  }
+
+  getBadgeClass(level: string): string {
+    switch (level) {
+      case 'Beginner':
+        return 'beginner';
+      case 'Intermediate':
+        return 'intermediate';
+      case 'Advanced':
+        return 'advanced';
+      default:
+        return '';
+    }
   }
 }
