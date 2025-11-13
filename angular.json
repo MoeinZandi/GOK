@@ -93,12 +93,17 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ]
+        "styles": [
+            "src/styles/themes.scss",
+            "src/styles.scss"
+]
+
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "eb82001e-1a32-4bd0-93c0-c4d88680b3cf"
   }
 }
