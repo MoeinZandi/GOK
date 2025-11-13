@@ -1,5 +1,5 @@
 <div class="min-h-screen bg-background p-4">
-  <app-navigation [isAuthenticated]="true" [user]="user"></app-navigation>
+  <app-navbar [isAuthenticated]="true" [user]="user"></app-navbar>
 
   <main class="max-w-7xl mx-auto py-8">
     <app-breadcrumbs [items]="[{ label: 'Home', href: '/' }, { label: 'Settings' }]"></app-breadcrumbs>
@@ -71,9 +71,7 @@
           <label>Preferred Language</label>
           <select [formControl]="preferencesForm.controls['language']" class="w-full">
             <option>English</option>
-            <option>Spanish</option>
-            <option>French</option>
-            <option>German</option>
+            <option>Persian</option>
           </select>
 
           <label>Timezone</label>

@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Navbar } from "../navbar/navbar";
 
 type RoleType = 'student' | 'teacher' | 'admin';
 
@@ -11,12 +12,13 @@ interface Role {
 }
 
 @Component({
-  selector: 'app-sign-in',
+  selector: 'app-Login',
   standalone: true,
   templateUrl: './login.html',
   styleUrls: ['./login.scss'],
+  imports: [Navbar],
 })
-export class SignInComponent implements OnInit {
+export class LoginComponent implements OnInit {
   private fb = inject(FormBuilder);
 
   isAuthenticated = false;

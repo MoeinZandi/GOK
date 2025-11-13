@@ -1,5 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Navbar } from "../navbar/navbar";
+import { BreadcrumbsComponent } from "../breadcrumbs/breadcrumbs";
 
 interface Tab {
   id: 'general' | 'security' | 'notifications' | 'preferences';
@@ -11,6 +13,7 @@ interface Tab {
   standalone: true,
   templateUrl: './settings.html',
   styleUrls: ['./settings.scss'],
+  imports: [Navbar, BreadcrumbsComponent],
 })
 export class SettingsComponent implements OnInit {
   private fb = inject(FormBuilder);
