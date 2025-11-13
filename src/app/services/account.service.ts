@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
-import { AppUser } from '../models/app-user.model';
+import { AppUserStudent } from '../models/app-user-student.model';
 import { map, Observable, tap } from 'rxjs';
 import { LoggedInUser } from '../models/logged-in.model';
 import { Login } from '../models/login.model';
@@ -21,7 +21,7 @@ export class AccountService {
   private readonly _baseApiUrl = `${environment.baseApiUrl}api`;
 
   // ✅ Register user and automatically set current user
-  register(userInput: AppUser): Observable<LoggedInUser> {
+  register(userInput: AppUserStudent): Observable<LoggedInUser> {
     return this.http.post<LoggedInUser>(`${this._baseApiUrl}/account/register`, userInput).pipe(
       tap(response => {
         if (response) {
@@ -55,7 +55,7 @@ export class AccountService {
   }
 
   // ✅ Update class
-  updateByTittle(classId: string, userInput: AppUser): Observable<classes> {
+  updateByTittle(classId: string, userInput: AppUserStudent): Observable<classes> {
     return this.http.put<classes>(`${this._baseApiUrl}/account/update/${classId}`, userInput);
   }
 

@@ -1,79 +1,77 @@
-import { Component, inject } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { AccountService } from '../../services/account.service';
-import { Login} from '../../models/login.model';
-import { LoggedInUser } from '../../models/logged-in.model';
-import { MatInputModule } from "@angular/material/input";
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+
+type RoleType = 'student' | 'teacher' | 'admin';
+
+interface Role {
+  id: RoleType;
+  title: string;
+  description: string;
+  icon: string;
+}
+
 @Component({
-  selector: 'app-login',
+  selector: 'app-sign-in',
   standalone: true,
-  imports: [
-    RouterModule,
-    FormsModule, ReactiveFormsModule,MatInputModule,
-    MatButtonModule, MatSnackBarModule
-],
   templateUrl: './login.html',
-  styleUrl: './login.scss'
+  styleUrls: ['./login.scss'],
 })
-export class LoginComponent {
-  accountService = inject(AccountService);
-  fB = inject(FormBuilder);
-  
-  private _snackBar = inject(MatSnackBar);
-  private _router = inject(Router);
+export class SignInComponent implements OnInit {
+  private fb = inject(FormBuilder);
 
+  isAuthenticated = false;
+  selectedRole: RoleType | null = null;
 
-  //#region loginFg
-  loginFg = this.fB.group({
-    userNameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
-    passwordCtrl: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]]
+  roles: Role[] = [
+    { id: 'student', title: 'Student', description: 'Access courses', icon: '🎓' },
+    { id: 'teacher', title: 'Teacher', description: 'Create/manage courses', icon: '👨‍🏫' },
+    { id: 'admin', title: 'Admin', description: 'Manage platform', icon: '⚙️' },
+  ];
+
+  // Booleans to control visibility
+  showRoleSelection = true;
+  showSignInForm = false;
+  showAdminCode = false;
+
+  // Forms
+  signInForm: FormGroup = this.fb.group({
+    email: [''],
+    password: [''],
+    adminCode: [''],
   });
 
-  get UserNameCtrl(): FormControl {
-    return this.loginFg.get('userNameCtrl') as FormControl;
+  constructor() {}
+
+  ngOnInit(): void {
+    this.updateVisibility();
   }
 
-  get PasswordCtrl(): FormControl {
-    return this.loginFg.get('passwordCtrl') as FormControl;
+  selectRole(roleId: RoleType) {
+    this.selectedRole = roleId;
+    this.updateVisibility();
   }
-  //#endregion
 
-  login(): void {
-    let userIn: Login = {
-      userName: this.UserNameCtrl.value,
-      password: this.PasswordCtrl.value
-    }
-
-    let loginRes$: Observable<LoggedInUser | null> = this.accountService.login(userIn);
-
-    loginRes$.subscribe({
-      next: (res) => {
-        this._snackBar.open(
-          '✅ You logged in successfully!',
-          'Go to Classes',
-          {
-            duration: 5000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom',
-            panelClass: ['succes-snackbar']
-          }
-        );
-        this._router.navigate(['/classes'])
-      },
-      error: (err) => {
-        this._snackBar.open('❌ Invalid username or password!', 'close', {
-          duration: 4000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-          panelClass: ['erro-snackbar']
-      }
-
-        )
-      }
-    })
+  changeRole() {
+    this.selectedRole = null;
+    this.updateVisibility();
+    this.signInForm.reset();
   }
+
+  private updateVisibility() {
+    this.showRoleSelection = !this.selectedRole;
+    this.showSignInForm = !!this.selectedRole;
+    this.showAdminCode = this.selectedRole === 'admin';
+  }
+
+  signIn() {
+    console.log('Sign in with:', this.signInForm.value, 'Role:', this.selectedRole);
+  }
+
+  get selectedRoleObj(): Role | undefined {
+    return this.roles.find(r => r.id === this.selectedRole);
+  }
+
+  get EmailCtrl(): FormControl { return this.signInForm.get('email') as FormControl; }
+  get PasswordCtrl(): FormControl { return this.signInForm.get('password') as FormControl; }
+  get AdminCodeCtrl(): FormControl { return this.signInForm.get('adminCode') as FormControl; }
 }

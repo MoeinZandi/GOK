@@ -1,0 +1,51 @@
+<div class="min-h-screen flex items-center justify-center bg-background">
+  <div class="card w-full max-w-xl p-6">
+    <h2 class="text-2xl font-semibold text-center mb-4">Register as Student</h2>
+
+    <div class="space-y-4">
+      <label>User Name</label>
+      <input type="text" placeholder="Enter your username" class="w-full input"/>
+
+      <label>Email</label>
+      <input type="email" placeholder="Enter your email" class="w-full input"/>
+
+      <label>Password</label>
+      <input type="password" placeholder="Enter your password" class="w-full input"/>
+
+      <label>Confirm Password</label>
+      <input type="password" placeholder="Confirm your password" class="w-full input"/>
+    </div>
+
+    <div class="space-y-4 mt-4">
+      <label>Age</label>
+      <input type="number" placeholder="Enter your age" class="w-full input"/>
+
+      <label>Phone Number</label>
+      <input type="text" placeholder="Enter your phone number" class="w-full input"/>
+
+      <label>Gender</label>
+      <input type="text" placeholder="Select Gender" list="genderList" class="w-full input"/>
+      <datalist id="genderList">
+        <option value="Male"></option>
+        <option value="Female"></option>
+        <option value="Others"></option>
+        <option value="Rather not say"></option>
+      </datalist>
+
+      <label>Country</label>
+      <input type="text" placeholder="Enter your country" class="w-full input"/>
+
+      <label>State</label>
+      <input type="text" placeholder="Enter your state" class="w-full input"/>
+
+      <label>City</label>
+      <input type="text" placeholder="Enter your city" class="w-full input"/>
+    </div>
+
+    <button class="btn-primary w-full mt-4">Create Student Account</button>
+
+    <p class="text-center text-sm mt-2">
+      Already have an account? <a href="/signin" class="text-primary hover:underline">Sign in here</a>
+    </p>
+  </div>
+</div>

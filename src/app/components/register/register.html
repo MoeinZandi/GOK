@@ -1,156 +1,29 @@
-<div class="page">
-  <main class="main">
-    <div class="card">
-      <div class="card-header">
-        <h1>Join KnowledgeHub</h1>
-        <p>Create your account and start your learning journey today</p>
-      </div>
+<div class="min-h-screen bg-background">
+  <app-navigation [isAuthenticated]="false"></app-navigation>
 
-      <!-- Role Selection -->
-      @if ( !selectedRole ) {
-        <h3 class="text-center">Choose Your Role</h3>
-        <div class="roles-grid">
-          @for (role of roles; track role.id) {
-            <button (click)="chooseRole(role.id)" class="role-card">
-              <div class="role-icon">{{ role.icon }}</div>
-              <h4>{{ role.title }}</h4>
-              <p>{{ role.description }}</p>
-              <ul>
-                @for (benefit of role.benefits; track benefit) {
-                  <li>✓ {{ benefit }}</li>
-                }
-              </ul>
-            </button>
-          }
-        </div>
-      }
+  <main class="flex items-center justify-center px-4 py-12">
+    <div class="card w-full max-w-2xl text-center">
+      <h2 class="text-2xl font-bold mb-2">Join the Knowledge Hub</h2>
+      <p class="mb-6">Create your account and start learning or teaching today.</p>
 
-      <!-- Stepper Form -->
-      @if ( selectedRole ) {
-        <mat-horizontal-stepper [linear]="isLinear" #stepper>
-          <!-- STEP 1 -->
-          <mat-step [stepControl]="FirstFg">
-            <form [formGroup]="FirstFg">
-              <ng-template matStepLabel>Personal Information</ng-template>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a routerLink="/register/student" class="role-card">
+          <div class="text-4xl">🎓</div>
+          <h4 class="font-semibold text-lg mt-2">Student</h4>
+          <p class="text-sm text-muted-foreground">Learn from experts worldwide</p>
+        </a>
 
-              <mat-form-field appearance="fill">
-                <mat-label>User Name</mat-label>
-                <input matInput formControlName="userNameCtrl" />
-              </mat-form-field>
+        <a routerLink="/register/teacher" class="role-card">
+          <div class="text-4xl">👨‍🏫</div>
+          <h4 class="font-semibold text-lg mt-2">Teacher</h4>
+          <p class="text-sm text-muted-foreground">Share your knowledge with learners</p>
+        </a>
 
-              <mat-form-field appearance="fill">
-                <mat-label>Email</mat-label>
-                <input matInput formControlName="emailCtrl" />
-              </mat-form-field>
-
-              <mat-form-field appearance="fill">
-                <mat-label>Password</mat-label>
-                <input matInput type="password" formControlName="passwordCtrl" />
-              </mat-form-field>
-
-              <mat-form-field appearance="fill">
-                <mat-label>Confirm Password</mat-label>
-                <input matInput type="password" formControlName="confirmPasswordCtrl" />
-              </mat-form-field>
-
-              <div class="step-actions">
-                <button mat-flat-button color="primary" matStepperNext [disabled]="FirstFg.invalid">Next</button>
-              </div>
-            </form>
-          </mat-step>
-
-          <!-- STEP 2 -->
-          <mat-step [stepControl]="SecondFg">
-            <form [formGroup]="SecondFg">
-              <ng-template matStepLabel>Extra Information</ng-template>
-
-              <mat-form-field appearance="fill">
-                <mat-label>Age</mat-label>
-                <input matInput type="number" formControlName="ageCtrl" />
-              </mat-form-field>
-
-              <mat-form-field appearance="fill">
-                <mat-label>Phone Number</mat-label>
-                <input matInput formControlName="phoneNumberCtrl" />
-              </mat-form-field>
-
-              <mat-form-field appearance="fill">
-                <mat-label>Gender</mat-label>
-                <input matInput placeholder="Select Gender" [formControl]="GenderCtrl" list="genderList" />
-                <datalist id="genderList">
-                  @for (gender of options; track gender) {
-                    <option [value]="gender"></option>
-                  }
-                </datalist>
-              </mat-form-field>
-
-              <mat-form-field appearance="fill">
-                <mat-label>Country</mat-label>
-                <mat-select formControlName="countryCtrl" (selectionChange)="onCountryChange($event)">
-                  @for (country of countries; track country.isoCode) {
-                    <mat-option [value]="country.isoCode">{{ country.name }}</mat-option>
-                  }
-                </mat-select>
-              </mat-form-field>
-
-              <mat-form-field appearance="fill">
-                <mat-label>State</mat-label>
-                <mat-select formControlName="stateCtrl" (selectionChange)="onStateChange($event)">
-                  @for (state of states; track state.isoCode) {
-                    <mat-option [value]="state.isoCode">{{ state.name }}</mat-option>
-                  }
-                </mat-select>
-              </mat-form-field>
-
-              <mat-form-field appearance="fill">
-                <mat-label>City</mat-label>
-                <mat-select formControlName="cityCtrl">
-                  @for (city of cities; track city.name) {
-                    <mat-option [value]="city.name">{{ city.name }}</mat-option>
-                  }
-                </mat-select>
-              </mat-form-field>
-
-              @if ( selectedRole === 'teacher' ) {
-                <mat-form-field appearance="fill">
-                  <mat-label>Area of Expertise</mat-label>
-                  <input matInput formControlName="expertiseCtrl" />
-                </mat-form-field>
-              }
-
-              @if ( selectedRole === 'admin' ) {
-                <mat-form-field appearance="fill">
-                  <mat-label>Admin Invitation Code</mat-label>
-                  <input matInput formControlName="adminCodeCtrl" type="password" />
-                </mat-form-field>
-              }
-
-              <div class="step-actions">
-                <button mat-stroked-button matStepperPrevious>Back</button>
-                <button mat-flat-button color="primary" matStepperNext [disabled]="SecondFg.invalid">Next</button>
-              </div>
-            </form>
-          </mat-step>
-
-          <!-- STEP 3 -->
-          <mat-step>
-            <ng-template matStepLabel>Confirmation</ng-template>
-
-            <p><strong>Name:</strong> {{ UserNameCtrl.value }}</p>
-            <p><strong>Email:</strong> {{ EmailCtrl.value }}</p>
-            <p><strong>Country:</strong> {{ CountryCtrl.value }}</p>
-            <p><strong>City:</strong> {{ CityCtrl.value }}</p>
-
-            <div class="step-actions">
-              <button mat-stroked-button matStepperPrevious>Back</button>
-              <button mat-flat-button color="accent" (click)="register()">Register</button>
-            </div>
-          </mat-step>
-        </mat-horizontal-stepper>
-      }
-
-      <div class="signin-text">
-        Already have an account? <a routerLink="/signin" class="link">Sign in here</a>
+        <a routerLink="/register/admin" class="role-card">
+          <div class="text-4xl">⚙️</div>
+          <h4 class="font-semibold text-lg mt-2">Admin</h4>
+          <p class="text-sm text-muted-foreground">Manage the platform</p>
+        </a>
       </div>
     </div>
   </main>

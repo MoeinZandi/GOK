@@ -1,105 +1,84 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatSelectModule } from '@angular/material/select';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
+interface Tab {
+  id: 'general' | 'security' | 'notifications' | 'preferences';
+  label: string;
+}
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatCardModule,
-    MatButtonModule,
-    MatInputModule,
-    MatSlideToggleModule,
-    MatTabsModule,
-    MatDividerModule,
-    MatSelectModule
-  ],
   templateUrl: './settings.html',
   styleUrls: ['./settings.scss'],
 })
-export class SettingsComponent {
-  isAuthenticated = true;
+export class SettingsComponent implements OnInit {
+  private fb = inject(FormBuilder);
+
+  // Tabs
+  tabs: Tab[] = [
+    { id: 'general', label: 'General' },
+    { id: 'security', label: 'Security' },
+    { id: 'notifications', label: 'Notifications' },
+    { id: 'preferences', label: 'Preferences' },
+  ];
+  selectedTab: Tab = this.tabs[0];
+
+  // User info
   user = {
-    name: 'moein Zandi',
+    name: 'Moein Zandi',
     email: 'moeinzandi@gmail.com',
     avatar: '/maleavatar.png',
   };
 
-  // Notification toggles
+  // Notifications
   emailNotifications = true;
   pushNotifications = false;
   weeklyDigest = true;
-  courseUpdates = true;
 
-  // Preferences
-  preferredLanguage = 'English';
-  timezone = 'UTC+1 (Central European Time)';
+  // Forms
+  profileForm: FormGroup = this.fb.group({
+    name: [this.user.name],
+    email: [this.user.email],
+    bio: [''],
+  });
 
-  // Display settings
-  darkMode = false;
-  compactView = false;
+  passwordForm: FormGroup = this.fb.group({
+    currentPassword: [''],
+    newPassword: [''],
+    confirmPassword: [''],
+  });
 
-  // Methods (placeholders — hook to services as needed)
-  saveProfile() {
-    console.log('Save profile', {
-      name: this.user.name,
-      email: this.user.email,
-      // other profile fields...
-    });
-    // call service to persist...
+  preferencesForm: FormGroup = this.fb.group({
+    language: ['English'],
+    timezone: ['UTC-8 (Pacific Time)'],
+  });
+
+  // Booleans for which section to show
+  showGeneral = true;
+  showSecurity = false;
+  showNotifications = false;
+  showPreferences = false;
+
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  // Tab selection
+  selectTab(tabId: 'general' | 'security' | 'notifications' | 'preferences') {
+    this.showGeneral = tabId === 'general';
+    this.showSecurity = tabId === 'security';
+    this.showNotifications = tabId === 'notifications';
+    this.showPreferences = tabId === 'preferences';
   }
 
-  deactivateAccount() {
-    console.log('Deactivate account clicked');
-    // call service...
-  }
+  // Notification toggles
+  toggleEmailNotifications() { this.emailNotifications = !this.emailNotifications; }
+  togglePushNotifications() { this.pushNotifications = !this.pushNotifications; }
+  toggleWeeklyDigest() { this.weeklyDigest = !this.weeklyDigest; }
 
-  deleteAccount() {
-    console.log('Delete account clicked');
-    // call service...
-  }
-
-  updatePassword(current: string, next: string, confirm: string) {
-    console.log('Update password', { current, next, confirm });
-    // validate and call service...
-  }
-
-  enableTwoFactor() {
-    console.log('Enable 2FA');
-    // service...
-  }
-
-  revokeSession(sessionId?: string) {
-    console.log('Revoke session', sessionId || 'current');
-    // service...
-  }
-
-  saveNotificationSettings() {
-    console.log('Notification settings', {
-      emailNotifications: this.emailNotifications,
-      weeklyDigest: this.weeklyDigest,
-      courseUpdates: this.courseUpdates,
-      pushNotifications: this.pushNotifications,
-    });
-    // persist...
-  }
-
-  savePreferences() {
-    console.log('Save preferences', {
-      preferredLanguage: this.preferredLanguage,
-      timezone: this.timezone,
-      darkMode: this.darkMode,
-      compactView: this.compactView,
-    });
-    // persist...
-  }
+  // Save actions
+  saveProfile() { console.log('Profile saved', this.profileForm.value); }
+  updatePassword() { console.log('Password updated', this.passwordForm.value); }
+  savePreferences() { console.log('Preferences saved', this.preferencesForm.value); }
 }

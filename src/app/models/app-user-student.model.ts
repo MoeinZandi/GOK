@@ -1,4 +1,4 @@
-export interface AppUser {
+export interface AppUserStudent {
     userName: string;
     email: string;
     age: number;
@@ -9,5 +9,4 @@ export interface AppUser {
     password: string;
     confirmPassword: string;
     avatar: string | undefined;
-    // captchaToken: string;
 }

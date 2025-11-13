@@ -1,1 +1,91 @@
-<p>settings works!</p>
+<div class="min-h-screen bg-background p-4">
+  <app-navigation [isAuthenticated]="true" [user]="user"></app-navigation>
+
+  <main class="max-w-7xl mx-auto py-8">
+    <app-breadcrumbs [items]="[{ label: 'Home', href: '/' }, { label: 'Settings' }]"></app-breadcrumbs>
+
+    <!-- Tabs -->
+    <div class="flex gap-4 mb-4">
+      <button (click)="selectTab('general')" [class.active]="showGeneral">General</button>
+      <button (click)="selectTab('security')" [class.active]="showSecurity">Security</button>
+      <button (click)="selectTab('notifications')" [class.active]="showNotifications">Notifications</button>
+      <button (click)="selectTab('preferences')" [class.active]="showPreferences">Preferences</button>
+    </div>
+
+    <!-- GENERAL -->
+    <div [hidden]="!showGeneral">
+      <div class="card p-4 mb-4">
+        <h3 class="font-bold mb-2">Profile Info</h3>
+        <div class="space-y-2">
+          <label>Full Name</label>
+          <input type="text" [formControl]="profileForm.controls['name']" class="w-full"/>
+          <label>Email</label>
+          <input type="email" [formControl]="profileForm.controls['email']" class="w-full"/>
+          <label>Bio</label>
+          <textarea [formControl]="profileForm.controls['bio']" class="w-full min-h-[100px]"></textarea>
+        </div>
+        <button (click)="saveProfile()" class="btn-primary mt-2 w-full">Save Changes</button>
+      </div>
+    </div>
+
+    <!-- SECURITY -->
+    <div [hidden]="!showSecurity">
+      <div class="card p-4 mb-4">
+        <h3 class="font-bold mb-2">Change Password</h3>
+        <div class="space-y-2">
+          <label>Current Password</label>
+          <input type="password" [formControl]="passwordForm.controls['currentPassword']" class="w-full"/>
+          <label>New Password</label>
+          <input type="password" [formControl]="passwordForm.controls['newPassword']" class="w-full"/>
+          <label>Confirm Password</label>
+          <input type="password" [formControl]="passwordForm.controls['confirmPassword']" class="w-full"/>
+        </div>
+        <button (click)="updatePassword()" class="btn-primary mt-2 w-full">Update Password</button>
+      </div>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div [hidden]="!showNotifications">
+      <div class="card p-4 mb-4">
+        <h3 class="font-bold mb-2">Notifications</h3>
+        <div class="flex justify-between items-center mb-2">
+          <span>Email Notifications</span>
+          <input type="checkbox" [checked]="emailNotifications" (change)="toggleEmailNotifications()"/>
+        </div>
+        <div class="flex justify-between items-center mb-2">
+          <span>Push Notifications</span>
+          <input type="checkbox" [checked]="pushNotifications" (change)="togglePushNotifications()"/>
+        </div>
+        <div class="flex justify-between items-center">
+          <span>Weekly Digest</span>
+          <input type="checkbox" [checked]="weeklyDigest" (change)="toggleWeeklyDigest()"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREFERENCES -->
+    <div [hidden]="!showPreferences">
+      <div class="card p-4 mb-4">
+        <h3 class="font-bold mb-2">Preferences</h3>
+        <div class="space-y-2">
+          <label>Preferred Language</label>
+          <select [formControl]="preferencesForm.controls['language']" class="w-full">
+            <option>English</option>
+            <option>Spanish</option>
+            <option>French</option>
+            <option>German</option>
+          </select>
+
+          <label>Timezone</label>
+          <select [formControl]="preferencesForm.controls['timezone']" class="w-full">
+            <option>UTC-8 (Pacific Time)</option>
+            <option>UTC-5 (Eastern Time)</option>
+            <option>UTC+0 (GMT)</option>
+            <option>UTC+1 (Central European Time)</option>
+          </select>
+        </div>
+        <button (click)="savePreferences()" class="btn-primary mt-2 w-full">Save Preferences</button>
+      </div>
+    </div>
+  </main>
+</div>
