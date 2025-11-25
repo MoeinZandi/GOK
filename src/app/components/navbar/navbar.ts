@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, inject, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
@@ -7,28 +7,23 @@ import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-navbar',
+  standalone: true,
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.scss'],
-  standalone: true,
-  imports: [MatToolbarModule, CommonModule, RouterModule],  // ✅ Add RouterModule
+  imports: [MatToolbarModule, CommonModule, RouterModule],
 })
-export class Navbar {
-  isAuthenticated = false;
+export class NavbarComponent {
+  @Input() isAuthenticated = false;
+  @Input() user: any = null;     // ✅ REQUIRED FIX
+
   isMobileMenuOpen = false;
   dropdownOpen = false;
 
-  accountService = inject(AccountService);
   @ViewChild('mobileMenu') mobileMenu!: ElementRef;
 
-  constructor(private api: ApiService, private router: Router) {}
+  accountService = inject(AccountService);
 
-  user = {
-    name: 'Moein ZANDI',
-    email: 'Moein@gmail.com',
-    age: '18',
-    gender: 'Male',
-    avatar: 'maleavatar.png',
-  };
+  constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit(): void {
     const storedUser = localStorage.getItem('user');
@@ -38,33 +33,24 @@ export class Navbar {
     }
   }
 
-  toggleMobileMenu(): void {
-    this.isMobileMenuOpen = !this.isMobileMenuOpen;
-  }
-
-  toggleDropdown(): void {
-    this.dropdownOpen = !this.dropdownOpen;
-  }
+  toggleMobileMenu() { this.isMobileMenuOpen = !this.isMobileMenuOpen; }
+  toggleDropdown() { this.dropdownOpen = !this.dropdownOpen; }
 
   @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent): void {
+  onDocClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
     const menu = this.mobileMenu?.nativeElement;
 
-    if (this.isMobileMenuOpen && menu && !menu.contains(target) && !target.closest('.mobile-toggle')) {
+    if (this.isMobileMenuOpen && menu && !menu.contains(target) && !target.closest('.mobile-toggle'))
       this.isMobileMenuOpen = false;
-    }
 
-    if (this.dropdownOpen && !target.closest('.avatar-dropdown')) {
+    if (this.dropdownOpen && !target.closest('.avatar-dropdown'))
       this.dropdownOpen = false;
-    }
   }
 
-  goTo(path: string): void {
-    this.router.navigate([path]);
-  }
+  goTo(path: string) { this.router.navigate([path]); }
 
-  logout(): void {
+  logout() {
     localStorage.removeItem('user');
     this.isAuthenticated = false;
     this.dropdownOpen = false;

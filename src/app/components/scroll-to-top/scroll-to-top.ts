@@ -2,18 +2,19 @@ import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-scroll-to-top',
+  standalone: true,
   templateUrl: './scroll-to-top.html',
-  styleUrls: ['./scroll-to-top.scss']
+  styleUrls: ['./scroll-to-top.scss'],
 })
 export class ScrollToTopComponent {
   isVisible = false;
 
-  @HostListener('window:scroll', [])
-  onWindowScroll(): void {
-    this.isVisible = (window.scrollY || document.documentElement.scrollTop) > 300;
+  @HostListener('window:scroll')
+  onScroll() {
+    this.isVisible = window.scrollY > 300;
   }
 
-  scrollToTop(): void {
+  scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

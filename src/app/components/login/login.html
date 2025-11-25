@@ -1,81 +1,57 @@
-<div class="min-h-screen bg-background p-4">
-  <app-navbar [isAuthenticated]="isAuthenticated"></app-navbar>
+<div class="login-page">
 
-  <main class="flex items-center justify-center px-4 py-12">
-    <div class="card w-full max-w-2xl">
-      <div class="card-header text-center">
-        <h2 class="text-2xl">Welcome Back</h2>
+  <!-- Navbar (no Angular input binding) -->
+  <div class="navbar">
+    <!-- Put your static navbar HTML here -->
+  </div>
+
+  <main class="login-main">
+    <div class="login-card">
+
+      <div class="login-card-header">
+        <h2>Welcome Back</h2>
         <p>Sign in to your account</p>
       </div>
 
-      <div class="card-content space-y-6">
+      <div class="login-card-content">
 
-        <!-- ROLE SELECTION -->
-        <div [hidden]="!showRoleSelection" class="space-y-4">
-          <h3 class="text-center font-semibold text-lg">Select Role</h3>
-          <div class="grid md:grid-cols-3 gap-4">
+        <!-- ROLE SELECTION (no Angular *ngIf or [hidden]) -->
+        <div id="role-section" class="role-section">
+          <h3 class="section-title">Select Role</h3>
 
-            <!-- Student -->
-            <button (click)="selectRole('student')" class="role-card p-6 border-2 border-border rounded-lg hover:border-primary hover:bg-blue-100 transition-all text-center space-y-2 group">
-              <div class="text-4xl">{{ roles[0].icon }}</div>
-              <h4 class="font-semibold text-lg">{{ roles[0].title }}</h4>
-              <p class="text-sm text-muted-foreground">{{ roles[0].description }}</p>
+          <div class="role-grid">
+
+            <!-- Replace *ngFor with static HTML -->
+            <button class="role-card" data-role="student">
+              <div class="role-icon">🎓</div>
+              <h4 class="role-title">Student</h4>
+              <p class="role-desc">Learn, grow, and explore!</p>
             </button>
 
-            <!-- Teacher -->
-            <button (click)="selectRole('teacher')" class="role-card p-6 border-2 border-border rounded-lg hover:border-primary hover:bg-blue-100 transition-all text-center space-y-2 group">
-              <div class="text-4xl">{{ roles[1].icon }}</div>
-              <h4 class="font-semibold text-lg">{{ roles[1].title }}</h4>
-              <p class="text-sm text-muted-foreground">{{ roles[1].description }}</p>
+            <button routerLink="login/teacher" class="role-card" data-role="teacher">
+              <div class="role-icon">👨‍🏫</div>
+              <h4 class="role-title">Teacher</h4>
+              <p class="role-desc">Share your knowledge with others.</p>
             </button>
 
-            <!-- Admin -->
-            <button (click)="selectRole('admin')" class="role-card p-6 border-2 border-border rounded-lg hover:border-primary hover:bg-blue-100 transition-all text-center space-y-2 group">
-              <div class="text-4xl">{{ roles[2].icon }}</div>
-              <h4 class="font-semibold text-lg">{{ roles[2].title }}</h4>
-              <p class="text-sm text-muted-foreground">{{ roles[2].description }}</p>
+            <button class="role-card" data-role="admin">
+              <div class="role-icon">🛠️</div>
+              <h4 class="role-title">Admin</h4>
+              <p class="role-desc">Manage the platform and users.</p>
             </button>
 
           </div>
         </div>
 
-        <!-- SIGN-IN FORM -->
-        <div [hidden]="!showSignInForm" class="space-y-4">
-          <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-2">
-              <span class="text-2xl">{{ selectedRoleObj?.icon }}</span>
-              <h3 class="font-semibold text-lg">Sign in as {{ selectedRoleObj?.title }}</h3>
-            </div>
-            <button class="btn-ghost" (click)="changeRole()">Change Role</button>
-          </div>
 
-          <div class="space-y-2">
-            <label>Email</label>
-            <input type="email" placeholder="Enter email" [formControl]="EmailCtrl" class="w-full"/>
-          </div>
-
-          <div class="space-y-2">
-            <label>Password</label>
-            <input type="password" placeholder="Enter password" [formControl]="PasswordCtrl" class="w-full"/>
-          </div>
-
-          <!-- ADMIN CODE -->
-          <div [hidden]="!showAdminCode" class="space-y-2">
-            <label>Admin Access Code</label>
-            <input type="password" placeholder="Enter admin code" [formControl]="AdminCodeCtrl" class="w-full"/>
-          </div>
-
-          <button (click)="signIn()" class="w-full hover:bg-white hover:text-primary hover:border-primary border-2 border-transparent transition-all">
-            Sign in as {{ selectedRoleObj?.title }}
-          </button>
-
-          <div class="text-center text-sm text-muted-foreground">
-            Don't have an account? 
-            <a routerLink="/register" class="text-primary hover:underline">Register here</a>
-          </div>
+        <!-- Register Text -->
+        <div class="register-text">
+          Don't have an account?
+          <a href="/register/main" class="link">Register here</a>
         </div>
 
       </div>
+
     </div>
   </main>
 </div>

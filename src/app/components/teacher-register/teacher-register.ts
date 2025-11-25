@@ -11,6 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { AppUserTeacher } from '../../models/app-user-teacher.model';
 
+
+
 @Component({
   selector: 'app-teacher-register',
   standalone: true,

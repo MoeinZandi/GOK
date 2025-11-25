@@ -1,10 +1,9 @@
-<div
-  class="scroll-to-top"
-  [style.opacity]="isVisible ? '1' : '0'"
-  [style.transform]="isVisible ? 'translateY(0)' : 'translateY(40px)'"
-  [style.pointerEvents]="isVisible ? 'auto' : 'none'"
->
-  <button class="scroll-btn" (click)="scrollToTop()" aria-label="Scroll to top">
-    ↑
-  </button>
-</div>
+<button class="scroll-btn" [class.visible]="isVisible" (click)="scrollToTop()">
+  <svg viewBox="0 0 24 24" fill="none">
+    <path
+      d="M6 15L12 9L18 15"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+</button>

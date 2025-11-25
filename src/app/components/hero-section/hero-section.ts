@@ -1,4 +1,6 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ViewEncapsulation } from '@angular/core';
+import { Footer } from "../footer/footer";
+import { Searchbox } from '../searchbox/searchbox';
 
 interface Feature {
   icon: string;
@@ -11,7 +13,9 @@ interface Feature {
 @Component({
   selector: 'app-hero-section',
   templateUrl: './hero-section.html',
-  styleUrls: ['./hero-section.scss']
+  styleUrls: ['./hero-section.scss'],
+  imports: [Searchbox],
+  encapsulation: ViewEncapsulation.None
 })
 export class HeroSectionComponent {
   hoveredCard: number | null = null;

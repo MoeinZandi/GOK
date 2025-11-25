@@ -18,8 +18,8 @@
         <!-- Guest (not logged in) -->
         @if (!isAuthenticated) {
           <div class="guest">
-            <button class="btn primary" (click)="goTo('/signin')">🔑 Sign In</button>
-            <button class="btn primary" (click)="goTo('/register')">✨ Register</button>
+            <button class="btn primary" (click)="goTo('/login')">🔑 Sign In</button>
+            <button class="btn primary" (click)="goTo('/register/main')">✨ Register</button>
           </div>
         }
 
@@ -66,7 +66,7 @@
         <button class="mobile-link destructive" (click)="logout()">🚪 Log out</button>
       } @else {
         <button class="mobile-link primary" (click)="goTo('/signin')">🔑 Sign In</button>
-        <button class="mobile-link primary" (click)="goTo('/register')">✨ Register</button>
+        <button class="mobile-link primary" (click)="goTo('/register/main')">✨ Register</button>
       }
     </div>
   </nav>

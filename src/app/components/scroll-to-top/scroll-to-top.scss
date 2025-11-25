@@ -1,32 +1,49 @@
-.scroll-to-top {
+.scroll-btn {
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 50;
-  transition: all 0.3s ease;
+  right: 28px;
+  bottom: 28px;
+  width: 52px;
+  
+  height: 52px;
+  border-radius: var(--radius);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--primary);          /* 🔵 full blue */
+  color: var(--primary-foreground);    /* ⚪ white */
+  border: 1px solid var(--primary);    /* blended border */
+
+  cursor: pointer;
+  outline: none;
+
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+
+  box-shadow: 0 6px 20px oklch(0 0 0 / 0.25);
+
+  svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2.5;
+    stroke: var(--primary-foreground);  /* white arrow */
+    pointer-events: none;
+  }
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.scroll-btn {
-  width: 3rem;
-  height: 3rem;
-  border: none;
-  border-radius: var(--radius-md);
-  background-color: var(--color-primary);
-  color: var(--color-primary-foreground);
-  font-size: 1.2rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  transition: all 0.3s ease;
+/* Light mode (no need to override because primary colors already correct) */
+:root .scroll-btn {}
 
-  &:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
-    background-color: var(--color-secondary);
-    color: var(--color-secondary-foreground);
-  }
-
-  &:focus {
-    outline: 2px solid var(--color-ring);
-    outline-offset: 2px;
-  }
+/* Dark mode (still use the same blue & white for consistency) */
+.dark .scroll-btn {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
 }

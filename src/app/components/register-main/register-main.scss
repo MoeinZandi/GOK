@@ -1,0 +1,226 @@
+$page-bg: #f9fafb;
+$primary: #0066ff;
+$text-muted: #666;
+$border: #e5e5e5;
+
+/* ============================================
+   PAGE LAYOUT
+============================================ */
+.page {
+  min-height: 100vh;
+  background: $page-bg;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem;
+
+  /* NAVBAR AREA */
+  .navigation {
+    background: #fff;
+    border-bottom: 1px solid $border;
+    padding: 1rem 2rem;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $primary;
+        cursor: pointer;
+        transition: 0.2s;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      .nav-links a {
+        margin-left: 1.5rem;
+        text-decoration: none;
+        color: $text-muted;
+        font-weight: 600;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+    }
+  }
+
+  /* MAIN CONTENT AREA */
+  .main {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    padding-top: 3rem;
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid $border;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      max-width: 700px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      /* TITLE + SUBTITLE */
+      .card-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.3rem;
+      }
+
+      .card-subtitle {
+        font-size: 1rem;
+        color: $text-muted;
+        margin-bottom: 2rem;
+      }
+
+      /* ROLE SELECTION GRID */
+      .role-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        width: 100%;
+
+        @media (min-width: 768px) {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .role-card {
+        background: #fff;
+        border: 1px solid $border;
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-decoration: none;
+        color: inherit;
+        transition: 0.25s ease;
+        cursor: pointer;
+
+        &:hover {
+          border-color: $primary;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+          transform: translateY(-2px);
+        }
+
+        .role-emoji {
+          font-size: 2.5rem;
+        }
+
+        .role-title {
+          font-weight: 600;
+          font-size: 1.125rem;
+          margin-top: 1rem;
+        }
+
+        .role-text {
+          color: $text-muted;
+          font-size: 0.9rem;
+          margin-top: 0.25rem;
+        }
+      }
+    }
+  }
+}
+
+/* ============================================
+   FORM USED IN OTHER REGISTER PAGES
+============================================ */
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  input {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid $border;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: $primary;
+      outline: none;
+    }
+  }
+}
+
+.btn {
+  background: $primary;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background: darken($primary, 10%);
+  }
+}
+
+.signin-text {
+  text-align: center;
+  font-size: 0.9rem;
+  color: $text-muted;
+  margin-top: 1.5rem;
+
+  .link {
+    color: $primary;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* ============================================
+   MATERIAL OVERRIDES
+============================================ */
+.mat-stepper-horizontal {
+  background: transparent !important;
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+@media (max-width: 768px) {
+  .page {
+    padding: 1rem;
+
+    .card {
+      padding: 1.5rem;
+      max-width: 100%;
+    }
+  }
+}

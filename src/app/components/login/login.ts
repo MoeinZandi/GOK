@@ -1,6 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { Navbar } from "../navbar/navbar";
+import { Component, inject, OnInit, } from '@angular/core';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 
 type RoleType = 'student' | 'teacher' | 'admin';
 
@@ -12,17 +13,21 @@ interface Role {
 }
 
 @Component({
-  selector: 'app-Login',
+  selector: 'app-login',
   standalone: true,
   templateUrl: './login.html',
   styleUrls: ['./login.scss'],
-  imports: [Navbar],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule,
+    RouterLink]
 })
 export class LoginComponent implements OnInit {
   private fb = inject(FormBuilder);
+  public router = inject(Router)
 
   isAuthenticated = false;
-  selectedRole: RoleType | null = null;
+
+  // FIX: selectedRole must be Role (not string)
+  selectedRole: Role | null = null;
 
   roles: Role[] = [
     { id: 'student', title: 'Student', description: 'Access courses', icon: '🎓' },
@@ -30,26 +35,23 @@ export class LoginComponent implements OnInit {
     { id: 'admin', title: 'Admin', description: 'Manage platform', icon: '⚙️' },
   ];
 
-  // Booleans to control visibility
+  signInForm = this.fb.group({
+    email: [''],
+    password: [''],
+    adminCode: ['']
+  });
+
   showRoleSelection = true;
   showSignInForm = false;
   showAdminCode = false;
 
-  // Forms
-  signInForm: FormGroup = this.fb.group({
-    email: [''],
-    password: [''],
-    adminCode: [''],
-  });
-
-  constructor() {}
-
-  ngOnInit(): void {
+  ngOnInit() { 
     this.updateVisibility();
   }
 
-  selectRole(roleId: RoleType) {
-    this.selectedRole = roleId;
+  // FIX: assign full Role object instead of string
+  selectRole(role: RoleType) {
+    this.selectedRole = this.roles.find(r => r.id === role) ?? null;
     this.updateVisibility();
   }
 
@@ -62,18 +64,14 @@ export class LoginComponent implements OnInit {
   private updateVisibility() {
     this.showRoleSelection = !this.selectedRole;
     this.showSignInForm = !!this.selectedRole;
-    this.showAdminCode = this.selectedRole === 'admin';
+    this.showAdminCode = this.selectedRole?.id === 'admin';
   }
 
   signIn() {
-    console.log('Sign in with:', this.signInForm.value, 'Role:', this.selectedRole);
+    console.log('Sign in:', this.signInForm.value);
   }
 
-  get selectedRoleObj(): Role | undefined {
-    return this.roles.find(r => r.id === this.selectedRole);
-  }
-
-  get EmailCtrl(): FormControl { return this.signInForm.get('email') as FormControl; }
-  get PasswordCtrl(): FormControl { return this.signInForm.get('password') as FormControl; }
-  get AdminCodeCtrl(): FormControl { return this.signInForm.get('adminCode') as FormControl; }
+  get EmailCtrl() { return this.signInForm.get('email') as FormControl; }
+  get PasswordCtrl() { return this.signInForm.get('password') as FormControl; }
+  get AdminCodeCtrl() { return this.signInForm.get('adminCode') as FormControl; }
 }

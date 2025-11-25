@@ -30,7 +30,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "./src/app/styles.scss"
             ]
           },
           "configurations": {
@@ -93,11 +93,9 @@
                 "input": "public"
               }
             ],
-        "styles": [
-            "src/styles/themes.scss",
-            "src/styles.scss"
-]
-
+            "styles": [
+              "./src/app/styles.scss"
+            ]
           }
         }
       }
