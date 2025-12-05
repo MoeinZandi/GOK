@@ -24,4 +24,9 @@ A web application built with **Angular 20** to provide a platform for learning a
 
 ---
 
+<<<<<<< HEAD
 ## 📁 Project Structure
+=======
+## 📁 Project Structure
+
+>>>>>>> 3d86269184da45bfc368b6bc2240654cebedf140
