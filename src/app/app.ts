@@ -6,7 +6,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
 import { LoaderService } from './services/loading.service';
 import { LoadingComponent } from './components/loading/loading';
-import { CommonModule } from '@angular/common';
+
 import { Subscription } from 'rxjs';
 import { LayoutService } from './services/layout';
 
@@ -15,13 +15,12 @@ import { LayoutService } from './services/layout';
   standalone: true,
   imports: [
     RouterOutlet,
-    CommonModule,
     NavbarComponent,
     ScrollToTopComponent,
     HttpClientModule,
     LoadingComponent,
     TranslateModule
-  ],
+],
   templateUrl: './app.html',
   styleUrls: ['./app.scss']
 })

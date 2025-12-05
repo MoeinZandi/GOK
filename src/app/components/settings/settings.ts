@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NavbarComponent } from '../navbar/navbar';
 import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs';
 import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
@@ -10,12 +10,11 @@ import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
   templateUrl: './settings.html',
   styleUrls: ['./settings.scss'],
   imports: [
-    CommonModule,
     NavbarComponent,
     BreadcrumbsComponent,
     ReactiveFormsModule,
     FormsModule
-  ]
+]
 })
 export class SettingsComponent {
   private fb = inject(FormBuilder);

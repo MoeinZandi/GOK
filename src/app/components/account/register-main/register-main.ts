@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NavbarComponent } from '../../navbar/navbar';
 import { RouterModule } from '@angular/router';
 
@@ -8,6 +8,6 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   templateUrl: './register-main.html',
   styleUrls: ['./register-main.scss'],
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
 })
 export class RegistermainComponent {}

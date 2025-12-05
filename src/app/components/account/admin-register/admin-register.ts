@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
+
 import { Subscription, Observable } from 'rxjs';
 import { AppUserAdmin } from '../../../models/app-user-admin.model';
 import { LoggedInUser } from '../../../models/logged-in.model';
@@ -15,7 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 @Component({
   selector: 'app-admin-register',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, MatDatepickerModule,MatInputModule, MatFormFieldModule, MatStepperModule, MatButtonModule, CommonModule],
+  imports: [RouterModule, ReactiveFormsModule, MatDatepickerModule, MatInputModule, MatFormFieldModule, MatStepperModule, MatButtonModule],
   templateUrl: './admin-register.html',
   styleUrls: ['./admin-register.scss'],
 })

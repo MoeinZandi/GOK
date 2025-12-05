@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
+
 import { AppUserTeacher } from '../../../models/app-user-teacher.model';
 import { Observable, Subscription } from 'rxjs';
 
@@ -17,7 +17,7 @@ import { Observable, Subscription } from 'rxjs';
 @Component({
   selector: 'app-teacher-register',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatStepperModule, MatButtonModule, CommonModule],
+  imports: [RouterModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatStepperModule, MatButtonModule],
   templateUrl: './teacher-register.html',
   styleUrls: ['./teacher-register.scss'],
 })

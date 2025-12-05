@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, ViewChild, inject, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { CommonModule } from '@angular/common';
+
 import { ApiService } from '../../services/api.service';
 import { AccountService } from '../../services/account.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
   standalone: true,
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.scss'],
-  imports: [MatToolbarModule, CommonModule, RouterModule],
+  imports: [MatToolbarModule, RouterModule],
 })
 export class NavbarComponent {
   @Input() isAuthenticated = false;

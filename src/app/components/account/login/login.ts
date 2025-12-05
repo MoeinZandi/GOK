@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, } from '@angular/core';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { Router, RouterLink } from '@angular/router';
 
 type RoleType = 'student' | 'teacher' | 'admin';
@@ -17,8 +17,7 @@ interface Role {
   standalone: true,
   templateUrl: './login.html',
   styleUrls: ['./login.scss'],
-  imports: [CommonModule, ReactiveFormsModule, FormsModule,
-    RouterLink]
+  imports: [ReactiveFormsModule, FormsModule, RouterLink]
 })
 export class LoginComponent implements OnInit {
   private fb = inject(FormBuilder);
