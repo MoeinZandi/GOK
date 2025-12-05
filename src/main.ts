@@ -7,24 +7,26 @@ import { routes } from './app/app.routes';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { loadingInterceptor } from './app/interceptors/loading-interceptor';
-export function httpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+
+
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
-    provideHttpClient(
-      withInterceptors([loadingInterceptor])
-    ),
-    importProvidersFrom(
+    provideHttpClient(withInterceptors([loadingInterceptor])),
+     importProvidersFrom(
       TranslateModule.forRoot({
+        defaultLanguage: 'en',
         loader: {
           provide: TranslateLoader,
-          useFactory: httpLoaderFactory,
+          useFactory: HttpLoaderFactory,
           deps: [HttpClient],
-        },
+        }
       })
-    ),
-  ],
+    )
+  ]
 });

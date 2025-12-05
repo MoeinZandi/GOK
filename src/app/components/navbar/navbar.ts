@@ -4,6 +4,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { AccountService } from '../../services/account.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navbar',
@@ -14,16 +15,23 @@ import { AccountService } from '../../services/account.service';
 })
 export class NavbarComponent {
   @Input() isAuthenticated = false;
-  @Input() user: any = null;     // ✅ REQUIRED FIX
+  @Input() user: any = null;
 
   isMobileMenuOpen = false;
   dropdownOpen = false;
+  currentLang = localStorage.getItem('lang') ?? 'en';
+
+  private translate = inject(TranslateService);
+  accountService = inject(AccountService);
 
   @ViewChild('mobileMenu') mobileMenu!: ElementRef;
 
-  accountService = inject(AccountService);
-
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(private api: ApiService, private router: Router) {
+    // 🌍 Initialize language
+    // this.translate.addLangs(['en', 'fa']);
+    // this.translate.use(this.currentLang);
+    // document.documentElement.dir = this.currentLang === 'fa' ? 'rtl' : 'ltr';
+  }
 
   ngOnInit(): void {
     const storedUser = localStorage.getItem('user');
@@ -33,6 +41,19 @@ export class NavbarComponent {
     }
   }
 
+  // ---------------------------
+  // 🌐 Language switcher
+  // ---------------------------
+  // changeLang(lang: string) {
+  //   this.currentLang = lang;
+  //   this.translate.use(lang);
+  //   localStorage.setItem('lang', lang);
+  //   document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+  // }
+
+  // ---------------------------
+  // 🔄 Mobile menu & dropdown
+  // ---------------------------
   toggleMobileMenu() { this.isMobileMenuOpen = !this.isMobileMenuOpen; }
   toggleDropdown() { this.dropdownOpen = !this.dropdownOpen; }
 
@@ -48,6 +69,9 @@ export class NavbarComponent {
       this.dropdownOpen = false;
   }
 
+  // ---------------------------
+  // 🚀 Routing & logout
+  // ---------------------------
   goTo(path: string) { this.router.navigate([path]); }
 
   logout() {

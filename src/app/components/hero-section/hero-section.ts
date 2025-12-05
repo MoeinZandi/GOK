@@ -14,7 +14,7 @@ interface Feature {
   selector: 'app-hero-section',
   templateUrl: './hero-section.html',
   styleUrls: ['./hero-section.scss'],
-  imports: [Searchbox],
+  imports: [Searchbox, Footer],
   encapsulation: ViewEncapsulation.None
 })
 export class HeroSectionComponent {

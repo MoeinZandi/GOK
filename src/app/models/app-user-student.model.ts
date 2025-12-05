@@ -1,12 +1,11 @@
 export interface AppUserStudent {
     userName: string;
     email: string;
-    age: number;
+    dateOfBirth: string | undefined;
     phoneNumber: string;
     gender: string;
     city: string;
     country: string;
     password: string;
     confirmPassword: string;
-    avatar: string | undefined;
 }

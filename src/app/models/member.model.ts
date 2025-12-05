@@ -1,12 +1,12 @@
-export interface AppUserTeacher {
-    userName: string;
+export interface Member {
     email: string;
-    dateOfBirth: string | undefined;
+    userName: string;
+    age: number;
     phoneNumber: string;
     gender: string;
     city: string;
     country: string;
     password: string;
-    confirmPassword: string;
+    adminCode: string;
     teacherCode: string
 }

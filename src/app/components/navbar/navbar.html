@@ -13,6 +13,21 @@
         </div>
       </div>
 
+    <!-- <div class="lang-switch"> -->
+    
+    <!-- English -->
+    <!-- <button 
+      class="lang-btn" 
+      [class.active]="currentLang === 'en'"
+      (click)="changeLang('en')">
+      EN
+    </button> -->
+
+    <!-- Persian -->
+    <!-- <button class="lang-btn" [class.active]="currentLang === 'fa'" (click)="changeLang('fa')"> فا</button>
+
+  </div> -->
+
       <!-- Right Section (Auth) -->
       <div class="auth">
         <!-- Guest (not logged in) -->
@@ -65,8 +80,8 @@
         <button class="mobile-link primary" (click)="goTo('/settings')">⚙️ Settings</button>
         <button class="mobile-link destructive" (click)="logout()">🚪 Log out</button>
       } @else {
-        <button class="mobile-link primary" (click)="goTo('/signin')">🔑 Sign In</button>
-        <button class="mobile-link primary" (click)="goTo('/register/main')">✨ Register</button>
+        <button class="mobile-link primary" (click)="goTo('login')">🔑 Sign In</button>
+        <button class="mobile-link primary" (click)="goTo('register/main')">✨ Register</button>
       }
     </div>
   </nav>
