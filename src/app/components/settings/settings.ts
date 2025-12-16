@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { NavbarComponent } from '../navbar/navbar';
 import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs';
@@ -9,12 +9,9 @@ import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
   standalone: true,
   templateUrl: './settings.html',
   styleUrls: ['./settings.scss'],
-  imports: [
-    NavbarComponent,
-    BreadcrumbsComponent,
-    ReactiveFormsModule,
-    FormsModule
-]
+  imports: [ NavbarComponent, BreadcrumbsComponent, ReactiveFormsModule, FormsModule],
+  encapsulation: ViewEncapsulation.Emulated
+
 })
 export class SettingsComponent {
   private fb = inject(FormBuilder);

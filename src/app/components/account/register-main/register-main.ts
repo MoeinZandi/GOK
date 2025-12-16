@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 import { NavbarComponent } from '../../navbar/navbar';
 import { RouterModule } from '@angular/router';
@@ -9,5 +9,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './register-main.html',
   styleUrls: ['./register-main.scss'],
   imports: [RouterModule],
+  encapsulation: ViewEncapsulation.Emulated
+
 })
 export class RegistermainComponent {}

@@ -1,9 +1,7 @@
-<button class="scroll-btn" [class.visible]="isVisible" (click)="scrollToTop()">
-  <svg viewBox="0 0 24 24" fill="none">
-    <path
-      d="M6 15L12 9L18 15"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-  </svg>
+<button
+  *ngIf="showButton"
+  class="scroll-to-top"
+  (click)="scrollToTop()"
+>
+  <span>↑</span>
 </button>

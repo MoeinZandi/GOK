@@ -7,13 +7,15 @@ import { Component, HostListener } from '@angular/core';
   styleUrls: ['./scroll-to-top.scss'],
 })
 export class ScrollToTopComponent {
-  isVisible = false;
+ showButton = true;
 
-  @HostListener('window:scroll')
-  onScroll() {
-    this.isVisible = window.scrollY > 300;
+  // Detect window scroll
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.showButton = window.scrollY > 100;
   }
 
+  // Scroll to top smoothly
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }

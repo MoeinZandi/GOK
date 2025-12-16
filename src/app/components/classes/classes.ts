@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-classes',
   templateUrl: './classes.html',
   styleUrls: ['./classes.scss'],
+  encapsulation: ViewEncapsulation.Emulated
+
 })
 export class ClassesComponent {
   isAuthenticated = false;

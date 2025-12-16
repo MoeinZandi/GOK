@@ -29,15 +29,18 @@
         <mat-form-field appearance="outline">
           <label>age</label>
           <input type="number" class="input" formControlName="age">
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
           <!-- <mat-label>Date of Birth</mat-label>
           <input matInput [min]="minDate" [max]="maxDate" [formControl]="dateOfBirthCtrl" [matDatepicker]="datePicker"
-          placeholder="Enter your date of birth">
+            placeholder="Enter your date of birth">
           <mat-datepicker-toggle matIconSuffix [for]="datePicker"></mat-datepicker-toggle>
           <mat-datepicker #datePicker touchUi disabled="false"></mat-datepicker> -->
         </mat-form-field>
         
         <label>Phone Number</label>
-        <input  placeholder="+98123456789" class="input" type="text" formControlName="phone">
+        <input  placeholder="+98123456789" class="input" type="tel" formControlName="phone">
 
         <label>Gender</label>
         <input class="input" type="text" list="genders" formControlName="gender">
@@ -82,7 +85,7 @@
 
         <p class="text-center text-sm mt-2">
           Already have an account?
-          <a href="/signin" class="text-primary hover">Sign in here</a>
+          <a href="/login/admin" class="text-primary hover">Sign in here</a>
         </p>
       </div>
     }

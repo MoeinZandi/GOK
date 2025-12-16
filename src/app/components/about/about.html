@@ -1,105 +1,88 @@
-<div class="page">
-  <!-- Header -->
-  <header class="header">
-    <h1>Galaxy Of Knowledge</h1>
-    <p>Your gateway to global education</p>
-  </header>
+<div class="min-h-screen bg-background">
 
-  <!-- Hero Section -->
-  <section id="hero" class="section hero">
-    <span class="badge">About GOK</span>
-    <h2>Galaxy Of Knowledge</h2>
-    <p>
-      We are a global learning platform dedicated to democratizing access to high-quality education
-      and empowering learners worldwide to unlock their potential.
+  <!-- HERO -->
+  <section class="space-y-6">
+    <span class="badge">{{ t('aboutGOK') }}</span>
+    <h1 class="text-4xl font-bold">{{ t('galaxyOfKnowledge') }}</h1>
+    <p class="text-muted-foreground">{{ t('aboutDescription') }}</p>
+
+    <div class="flex gap-4">
+      <a routerLink="/classes" class="btn primary">
+        {{ t('exploreCourses') }}
+      </a>
+      <a routerLink="/contact" class="btn outline">
+        {{ t('getInTouch') }}
+      </a>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section id="mission" class="space-y-4">
+    <h2 class="text-3xl font-bold">{{ t('ourMission') }}</h2>
+    <p class="text-muted-foreground">{{ t('missionDescription1') }}</p>
+    <p class="text-muted-foreground">{{ t('missionDescription2') }}</p>
+  </section>
+
+  <!-- STATS -->
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    @for (stat of stats; track stat.label) {
+      <div class="card text-center">
+        <div class="text-3xl font-bold">{{ stat.value }}</div>
+        <div class="text-muted-foreground">{{ stat.label }}</div>
+      </div>
+    }
+  </section>
+
+  <!-- STORY -->
+  <section id="story" class="space-y-4">
+    <h2 class="text-3xl font-bold">{{ t('ourStory') }}</h2>
+    <p class="text-muted-foreground">
+      Galaxy Of Knowledge was built to empower learners worldwide.
     </p>
-    <div class="buttons">
-      <a href="/classes" class="btn primary">Explore Courses</a>
-      <a href="/contact" class="btn outline">Get in Touch</a>
+  </section>
+
+  <!-- VALUES -->
+  <section id="values" class="space-y-6">
+    <h2 class="text-3xl font-bold">{{ t('values') }}</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      @for (v of values; track v.title) {
+        <div class="card">
+          <div class="text-2xl">{{ v.emoji }}</div>
+          <h3 class="font-semibold">{{ v.title }}</h3>
+          <p class="text-muted-foreground">{{ v.desc }}</p>
+        </div>
+      }
     </div>
   </section>
 
-  <!-- Mission -->
-  <section id="mission" class="section">
-    <h2>Our Mission</h2>
-    <p>
-      At Galaxy Of Knowledge, we believe that education is the most powerful tool for
-      transformation. We strive to bridge the gap between traditional learning and modern skill
-      demands by offering cutting-edge courses and a global community.
-    </p>
-  </section>
+  <!-- TEAM -->
+  <section id="team" class="space-y-6">
+    <h2 class="text-3xl font-bold">{{ t('leadershipTeam') }}</h2>
 
-  <!-- Stats -->
-  <section id="stats" class="stats">
-    <div class="card">
-      <h3>{{ stats[0]?.Value }}</h3>
-      <p>{{ stats[0]?.Label }}</p>
-    </div>
-    <div class="card">
-      <h3>{{ stats[1]?.Value }}</h3>
-      <p>{{ stats[1]?.Label }}</p>
-    </div>
-    <div class="card">
-      <h3>{{ stats[2]?.Value }}</h3>
-      <p>{{ stats[2]?.Label }}</p>
-    </div>
-  </section>
-
-  <!-- Values -->
-  <section id="values" class="values">
-    <h2>Our Values</h2>
-    <div class="value-card">
-      <div class="emoji">{{ values[0]?.Emoji }}</div>
-      <h4>{{ values[0]?.Title }}</h4>
-      <p>{{ values[0]?.Description }}</p>
-    </div>
-    <div class="value-card">
-      <div class="emoji">{{ values[1]?.Emoji }}</div>
-      <h4>{{ values[1]?.Title }}</h4>
-      <p>{{ values[1]?.Description }}</p>
-    </div>
-    <div class="value-card">
-      <div class="emoji">{{ values[2]?.Emoji }}</div>
-      <h4>{{ values[2]?.Title }}</h4>
-      <p>{{ values[2]?.Description }}</p>
-    </div>
-    <div class="value-card">
-      <div class="emoji">{{ values[3]?.Emoji }}</div>
-      <h4>{{ values[3]?.Title }}</h4>
-      <p>{{ values[3]?.Description }}</p>
-    </div>
-  </section>
-
-  <!-- Team -->
-  <section id="team" class="team">
-    <h2>Leadership Team</h2>
-    <div class="team-card">
-      <div class="emoji">{{ team[0]?.Emoji }}</div>
-      <h4>{{ team[0]?.Name }}</h4>
-      <p class="role">{{ team[0]?.Role }}</p>
-    </div>
-    <div class="team-card">
-      <div class="emoji">{{ team[1]?.Emoji }}</div>
-      <h4>{{ team[1]?.Name }}</h4>
-      <p class="role">{{ team[1]?.Role }}</p>
-    </div>
-    <div class="team-card">
-      <div class="emoji">{{ team[2]?.Emoji }}</div>
-      <h4>{{ team[2]?.Name }}</h4>
-      <p class="role">{{ team[2]?.Role }}</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      @for (member of team; track member.name) {
+        <div class="card text-center">
+          <div class="text-3xl">{{ member.emoji }}</div>
+          <h3 class="font-semibold">{{ member.name }}</h3>
+          <p class="text-muted-foreground">{{ member.role }}</p>
+        </div>
+      }
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="cta">
-    <h2>Ready to Start Learning?</h2>
-    <p>
-      Join thousands of learners transforming their lives through our courses and expert
-      instruction.
-    </p>
-    <div class="buttons">
-      <a href="/register" class="btn primary">Get Started Today</a>
-      <a href="/classes" class="btn outline">Browse Courses</a>
+  <section class="cta text-center space-y-4">
+    <h2 class="text-2xl font-bold">{{ t('readyToStart') }}</h2>
+    <p class="text-muted-foreground">{{ t('joinThousands') }}</p>
+
+    <div class="flex justify-center gap-4">
+      <a routerLink="/register" class="btn primary">
+        {{ t('getStartedToday') }}
+      </a>
+      <a routerLink="/classes" class="btn outline">
+        {{ t('browseCourses') }}
+      </a>
     </div>
   </section>
 

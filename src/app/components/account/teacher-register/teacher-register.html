@@ -66,15 +66,15 @@
           <p class="error">Passwords do not match</p>
         }
 
-        <label class="mt-3">Admin Invitation Code</label>
+        <label class="mt-3">Teacher Code</label>
         <input class="input" type="password" formControlName="inviteCode">
 
-        <button class="btn-primary w-full mt-4" (click)="register()">Create Admin Account</button>
+        <button class="btn-primary w-full mt-4" (click)="register()">Create Teacher Account</button>
         <button class="btn-secondary w-full mt-2" (click)="goPrev()">Back</button>
 
         <p class="text-center text-sm mt-2">
           Already have an account?
-          <a href="/signin" class="text-primary hover">Sign in here</a>
+          <a href="login/teacher" class="text-primary hover">Sign in here</a>
         </p>
       </div>
     }

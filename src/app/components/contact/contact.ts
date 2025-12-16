@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.html',
   styleUrls: ['./contact.scss'],
+  encapsulation: ViewEncapsulation.Emulated
+
 })
 export class ContactComponent {
   isAuthenticated = false;

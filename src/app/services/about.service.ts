@@ -1,28 +1,75 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
+
+interface StatVM {
+  Value: string;
+  Label: string;
+}
+
+interface ValueVM {
+  Emoji: string;
+  Title: string;
+  Description: string;
+}
+
+interface TeamVM {
+  Emoji: string;
+  Name: string;
+  Role: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AboutService {
-  private apiUrl = 'https://localhost:5001/api/about';
-  
+
+  // 🔹 Change base URL if needed
+  private readonly baseUrl = '/api/about';
+
   constructor(private http: HttpClient) {}
 
-  getStats(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/stats`);
+  // =========================
+  // Stats
+  // =========================
+  getStats(): Observable<StatVM[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/stats`).pipe(
+      map(data =>
+        data.map(item => ({
+          Value: item.Value ?? item.value,
+          Label: item.Label ?? item.label
+        }))
+      )
+    );
   }
 
-  getTeam(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/team`);
+  // =========================
+  // Values
+  // =========================
+  getValues(): Observable<ValueVM[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/values`).pipe(
+      map(data =>
+        data.map(item => ({
+          Emoji: item.Emoji ?? item.emoji,
+          Title: item.Title ?? item.title,
+          Description: item.Description ?? item.description
+        }))
+      )
+    );
   }
 
-  getValues(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/values`);
-  }
-
-   getAboutData(): Observable<any> {
-    return this.http.get(this.apiUrl);
+  // =========================
+  // Team
+  // =========================
+  getTeam(): Observable<TeamVM[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/team`).pipe(
+      map(data =>
+        data.map(item => ({
+          Emoji: item.Emoji ?? item.emoji,
+          Name: item.Name ?? item.name,
+          Role: item.Role ?? item.role
+        }))
+      )
+    );
   }
 }

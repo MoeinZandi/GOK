@@ -18,7 +18,3 @@ export const appConfig: ApplicationConfig = {
   ]
 };
 
-export const APP_IMPORTS = [
-  NavbarComponent,
-  ScrollToTopComponent
-];

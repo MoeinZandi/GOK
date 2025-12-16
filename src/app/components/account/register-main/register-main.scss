@@ -211,6 +211,22 @@ $border: #e5e5e5;
   margin-top: 16px;
 }
 
+/* Login link */
+.login-text {
+  text-align: center;
+  font-size: 0.9rem;
+  color: $text-muted;
+
+  .link {
+    color: $primary;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 /* ============================================
    RESPONSIVE
 ============================================ */

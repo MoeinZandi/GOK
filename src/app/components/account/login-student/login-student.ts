@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -8,7 +8,9 @@ import { Router } from '@angular/router';
   selector: 'app-login-student',
   imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './login-student.html',
-  styleUrl: './login-student.scss'
+  styleUrl: './login-student.scss',
+  encapsulation: ViewEncapsulation.Emulated
+
 })
 export class LoginStudent {
   private _fb = inject(FormBuilder);

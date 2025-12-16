@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AccountService } from '../../../services/account.service';
@@ -20,6 +20,8 @@ import { Observable, Subscription } from 'rxjs';
   imports: [RouterModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatStepperModule, MatButtonModule],
   templateUrl: './teacher-register.html',
   styleUrls: ['./teacher-register.scss'],
+  encapsulation: ViewEncapsulation.Emulated
+
 })
 export class TeacherRegisterComponent implements OnInit {
   step = 1;

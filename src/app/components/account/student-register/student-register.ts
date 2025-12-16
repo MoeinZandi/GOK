@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AccountService } from '../../../services/account.service';
@@ -7,16 +7,23 @@ import { LoggedInUser } from '../../../models/logged-in.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
-import { MatButtonModule } from '@angular/material/button';
-
 import { Observable, Subscription } from 'rxjs';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {provideNativeDateAdapter} from '@angular/material/core';
+
+
 
 @Component({
   selector: 'app-student-register',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatStepperModule, MatButtonModule],
+  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatButtonModule,RouterModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatStepperModule,],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './student-register.html',
   styleUrls: ['./student-register.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated
+
 })
 export class StudentRegisterComponent implements OnInit {
   step = 1;

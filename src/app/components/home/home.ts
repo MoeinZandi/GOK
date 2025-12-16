@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { HeroSectionComponent } from "../hero-section/hero-section";
 import { ScrollToTopComponent } from "../scroll-to-top/scroll-to-top";
 
@@ -6,7 +6,9 @@ import { ScrollToTopComponent } from "../scroll-to-top/scroll-to-top";
   selector: 'app-home',
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
-  imports: [HeroSectionComponent, ScrollToTopComponent]
+  imports: [HeroSectionComponent, ScrollToTopComponent],
+  encapsulation: ViewEncapsulation.Emulated
+
 })
 export class HomeComponent {
 searchQuery: any;

@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.html',
-  styleUrls: ['./profile.scss']
+  styleUrls: ['./profile.scss'],
+  encapsulation: ViewEncapsulation.Emulated
+
 })
 export class ProfileComponent {
   isAuthenticated = true;

@@ -115,7 +115,7 @@ $background: var(--background);
 }
 
 .social-button {
-  background: linear-gradient(45deg, #000 0%, #707070 100%);
+ background: linear-gradient(45deg, $primary 0%, #c0c0c0 100%);
   border: 5px solid #fff;
   padding: 5px;
   border-radius: 50%;
@@ -161,7 +161,7 @@ $background: var(--background);
     align-self: auto;
 
     &:hover {
-      text-decoration: underline;
+      text-decoration: none;
     }
   }
 }

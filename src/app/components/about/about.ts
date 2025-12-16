@@ -1,35 +1,64 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { AboutService } from '../../services/about.service';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-about',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './about.html',
   styleUrls: ['./about.scss']
 })
-export class AboutComponent implements OnInit {
-  stats: any[] = [];
-  team: any[] = [];
-  values: any[] = [];
-  showScroll = false;
+export class AboutComponent {
 
-  constructor(private aboutService: AboutService) {}
+  // Simulated auth state
+  isAuthenticated = false;
+  user: any = null;
 
-  ngOnInit(): void {
-    this.aboutService.getStats().subscribe((data) => (this.stats = data));
-    this.aboutService.getTeam().subscribe((data) => (this.team = data));
-    this.aboutService.getValues().subscribe((data) => (this.values = data));
+  // Fake i18n (replace with your real translation service)
+  t(key: string): string {
+    const dict: Record<string, string> = {
+      about: 'About',
+      aboutGOK: 'About GOK',
+      galaxyOfKnowledge: 'Galaxy Of Knowledge',
+      aboutDescription: 'Your gateway to global education.',
+      exploreCourses: 'Explore Courses',
+      getInTouch: 'Get in Touch',
+      ourMission: 'Our Mission',
+      missionDescription1: 'Education is the most powerful tool for transformation.',
+      missionDescription2: 'We bridge traditional learning with modern skills.',
+      activeLearners: 'Active Learners',
+      expertCourses: 'Expert Courses',
+      completionRate: 'Completion Rate',
+      ourStory: 'Our Story',
+      values: 'Our Values',
+      leadershipTeam: 'Leadership Team',
+      readyToStart: 'Ready to Start Learning?',
+      joinThousands: 'Join thousands of learners worldwide.',
+      getStartedToday: 'Get Started Today',
+      browseCourses: 'Browse Courses'
+    };
+
+    return dict[key] ?? key;
   }
 
-  @HostListener('window:scroll', [])
-  onScroll(): void {
-    this.showScroll = window.scrollY > 300;
-    const scrollButton = document.querySelector('.scroll-top') as HTMLElement;
-    if (scrollButton) {
-      scrollButton.style.display = this.showScroll ? 'block' : 'none';
-    }
-  }
+  // Data models
+  stats = [
+    { value: '50,000+', label: this.t('activeLearners') },
+    { value: '500+', label: this.t('expertCourses') },
+    { value: '95%', label: this.t('completionRate') }
+  ];
 
-  scrollToTop(): void {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  values = [
+    { emoji: '🌍', title: 'Accessibility', desc: 'Education for everyone, everywhere.' },
+    { emoji: '⭐', title: 'Excellence', desc: 'High-quality courses and outcomes.' },
+    { emoji: '🤝', title: 'Community', desc: 'Learn and grow together.' },
+    { emoji: '🚀', title: 'Innovation', desc: 'Always improving learning experience.' }
+  ];
+
+  team = [
+    { emoji: '👨‍💼', name: 'Alex Chen', role: 'CEO' },
+    { emoji: '👩‍🏫', name: 'Sarah Johnson', role: 'Chief Academic Officer' },
+    { emoji: '👨‍💻', name: 'Marcus Rodriguez', role: 'CTO' }
+  ];
 }

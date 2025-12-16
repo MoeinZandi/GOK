@@ -5,6 +5,7 @@ export interface AppUserAdmin {
     phoneNumber: string;
     gender: string;
     city: string;
+    state: string;
     country: string;
     password: string;
     confirmPassword: string;

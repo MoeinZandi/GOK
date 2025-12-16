@@ -1,49 +1,33 @@
-.scroll-btn {
+.scroll-to-top {
   position: fixed;
-  right: 28px;
-  bottom: 28px;
-  width: 52px;
-  
-  height: 52px;
-  border-radius: var(--radius);
-
+  bottom: 40px;
+  right: 40px;
+  width: 70px;
+  height: 70px;
+  border: none;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25),
+              inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 9999;
 
-  background: var(--primary);          /* 🔵 full blue */
-  color: var(--primary-foreground);    /* ⚪ white */
-  border: 1px solid var(--primary);    /* blended border */
-
-  cursor: pointer;
-  outline: none;
-
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-
-  box-shadow: 0 6px 20px oklch(0 0 0 / 0.25);
-
-  svg {
-    width: 24px;
-    height: 24px;
-    stroke-width: 2.5;
-    stroke: var(--primary-foreground);  /* white arrow */
-    pointer-events: none;
+  span {
+    font-size: 32px;
+    color: #1e90ff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
   }
 
-  &.visible {
-    opacity: 1;
-    transform: translateY(0);
+  &:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35),
+                inset 0 1px 2px rgba(255, 255, 255, 0.4);
   }
-}
-
-/* Light mode (no need to override because primary colors already correct) */
-:root .scroll-btn {}
-
-/* Dark mode (still use the same blue & white for consistency) */
-.dark .scroll-btn {
-  background: var(--primary);
-  color: var(--primary-foreground);
-  border-color: var(--primary);
 }

@@ -1,11 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup as registerFG, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
-
+import {ChangeDetectionStrategy} from '@angular/core';
+import {provideNativeDateAdapter} from '@angular/material/core';
 import { Subscription, Observable } from 'rxjs';
 import { AppUserAdmin } from '../../../models/app-user-admin.model';
 import { LoggedInUser } from '../../../models/logged-in.model';
@@ -18,9 +19,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   imports: [RouterModule, ReactiveFormsModule, MatDatepickerModule, MatInputModule, MatFormFieldModule, MatStepperModule, MatButtonModule],
   templateUrl: './admin-register.html',
   styleUrls: ['./admin-register.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class AdminRegisterComponent {
 step = 1;
+
 
   fb = inject(FormBuilder);
   router = inject(Router);
@@ -96,6 +100,7 @@ step = 1;
       password: this.PasswordCtrl.value!,
       confirmPassword: this.ConfirmPasswordCtrl.value!,
       adminCode: this.AdminCodeCtrl.value,
+      state: this.StateCtrl.value,
     }
     let response$: Observable<LoggedInUser | null> = this.accountService.registerStudent(userInput);
 

@@ -18,6 +18,7 @@ import { Searchbox } from './components/searchbox/searchbox';
 import { LoginAdmin } from './components/account/login-admin/login-admin';
 import { LoginStudent } from './components/account/login-student/login-student';
 import { LoginTeacher } from './components/account/login-teacher/login-teacher';
+import { ResetPassword } from './components/reset-password/reset-password';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -34,8 +35,8 @@ export const routes: Routes = [
   { path: 'settings', component: SettingsComponent, canActivate:[authGuard]},
   { path: 'profile', component: ProfileComponent, canActivate:[authGuard]},
   { path: 'loading', component: LoadingComponent, canActivate:[layoutGuard]},
-  { path: 'footer', component: Footer, canActivate:[layoutGuard]},
-  { path: '**', redirectTo: '' },
-  { path: 'search', component: Searchbox}
-      
+  { path: 'footer', component: Footer, canActivate:[layoutGuard]},  
+  { path: 'search', component: Searchbox},
+  {path: 'reset-password', component: ResetPassword},
+  { path: '**', redirectTo: '' }
 ];

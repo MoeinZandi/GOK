@@ -248,35 +248,3 @@ $bg: #ffffff;
     }
   }
 }
-
-.navbar {
-  width: 100%;
-  height: 64px;
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-}
-
-// .lang-switch {
-//   display: flex;
-//   gap: 10px;
-
-//   .lang-btn {
-//     padding: 6px 12px;
-//     border-radius: 6px;
-//     border: 1px solid #cbd5e1;
-//     background: #f8fafc;
-//     cursor: pointer;
-//     font-size: 14px;
-
-//     &.active {
-//       background: #1d4ed8;
-//       color: white;
-//       border-color: #1d4ed8;
-//     }
-//   }
-// }
-

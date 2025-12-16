@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -6,11 +6,13 @@ import { Router } from '@angular/router';
   selector: 'app-login-admin',
   imports: [],
   templateUrl: './login-admin.html',
-  styleUrl: './login-admin.scss'
+  styleUrl: './login-admin.scss',
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class LoginAdmin {
   private _fb = inject(FormBuilder);
-  public router = inject(Router)
+  public router = inject(Router);
+
 
     signInForm = this._fb.group({
     email: [''],

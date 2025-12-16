@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, } from '@angular/core';
+import { Component, inject, OnInit, ViewEncapsulation, } from '@angular/core';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Router, RouterLink } from '@angular/router';
@@ -17,11 +17,13 @@ interface Role {
   standalone: true,
   templateUrl: './login.html',
   styleUrls: ['./login.scss'],
+  encapsulation: ViewEncapsulation.Emulated,
   imports: [ReactiveFormsModule, FormsModule, RouterLink]
 })
 export class LoginComponent implements OnInit {
   private fb = inject(FormBuilder);
-  public router = inject(Router)
+  public router = inject(Router);
+
 
   isAuthenticated = false;
 

@@ -84,7 +84,6 @@ GLOBAL OKLCH THEME VARIABLES (Light + Dark)
 /* -----------------------------------------------------------
    ANGULAR MATERIAL M3 THEME
 ----------------------------------------------------------- */
-
 html {
   @include mat.theme((
     color: (
@@ -97,26 +96,65 @@ html {
 }
 
 /* -----------------------------------------------------------
-   GLOBAL BASE STYLES (FIXED + MERGED)
+   GLOBAL BASE STYLES
 ----------------------------------------------------------- */
 
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden;
   background-color: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-/* Allow proper vertical expansion (fixes extra scroll) */
 body {
   min-height: 100vh;
 }
 
-/* Page wrapper */
 .page {
-  min-height: calc(100vh - 70px); /* minus navbar height */
+  min-height: calc(100vh - 70px);
   display: block;
+}
+
+/* -----------------------------------------------------------
+   GLOBAL RESPONSIVE BREAKPOINTS (APPLIES TO ALL COMPONENTS)
+----------------------------------------------------------- */
+
+@media (max-width: 320px) {
+  * { font-size: 12px; }
+  .page { padding: 0 10px; }
+}
+
+@media (max-width: 375px) {
+  * { font-size: 13px; }
+  .page { padding: 0 12px; }
+}
+
+@media (max-width: 425px) {
+  * { font-size: 14px; }
+  .page { padding: 0 14px; }
+}
+
+@media (max-width: 768px) {
+  * { font-size: 15px; }
+  .page { padding: 0 20px; }
+}
+
+@media (max-width: 1024px) {
+  * { font-size: 16px; }
+}
+
+@media (max-width: 1440px) {
+  * { font-size: 17px; }
+}
+
+@media (min-width: 1920px) { /* 2K */
+  * { font-size: 18px; }
+}
+
+@media (min-width: 2560px) { /* 4K */
+  * { font-size: 20px; }
+  .page { max-width: 2200px; margin: 0 auto; }
 }
