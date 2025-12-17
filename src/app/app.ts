@@ -1,12 +1,17 @@
 import { Component, inject, signal, OnDestroy, OnInit } from '@angular/core';
-import { Router, RouterOutlet, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+import {
+  Router,
+  RouterOutlet,
+  NavigationStart,
+  NavigationEnd,
+  NavigationCancel,
+  NavigationError,
+} from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar';
 import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
-import { LoaderService } from './services/loading.service';
 import { LoadingComponent } from './components/loading/loading';
-
 import { Subscription } from 'rxjs';
 import { LayoutService } from './services/layout';
 
@@ -19,13 +24,12 @@ import { LayoutService } from './services/layout';
     ScrollToTopComponent,
     HttpClientModule,
     LoadingComponent,
-    TranslateModule
-],
+    TranslateModule,
+  ],
   templateUrl: './app.html',
-  styleUrls: ['./app.scss']
+  styleUrls: ['./app.scss'],
 })
 export class AppComponent implements OnDestroy {
-
   title = 'GOK - Galaxy Of Knowledge';
   description = 'Your gateway to unlimited learning and knowledge';
 
@@ -36,12 +40,9 @@ export class AppComponent implements OnDestroy {
   layout = inject(LayoutService);
 
   private _router = inject(Router);
-  private _loader = inject(LoaderService);
-  private _translate = inject(TranslateService);
   private _subs = new Subscription();
 
   constructor(private translate: TranslateService) {
-
     // ------------------------------
     // 🌍 Initialize language
     // ------------------------------
@@ -55,7 +56,7 @@ export class AppComponent implements OnDestroy {
     // ------------------------------
     // 🔄 Global Router Loader
     // ------------------------------
-    const routerSub = this._router.events.subscribe(event => {
+    const routerSub = this._router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.isLoading.set(true);
       }
