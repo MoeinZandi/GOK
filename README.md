@@ -1,6 +1,6 @@
 # GOK (Galaxy Of Knowledge) 🚀
 
-A web application built with **Angular 20** to provide a platform for learning and managing educational content.
+A web application built with **Angular 20 And 21** to provide a platform for learning and managing educational content.
 
 ---
 
@@ -21,12 +21,3 @@ A web application built with **Angular 20** to provide a platform for learning a
 - Responsive and clean UI with SCSS styling  
 - Easy navigation and user-friendly interface  
 - Ready for local development and deployment  
-
----
-
-<<<<<<< HEAD
-## 📁 Project Structure
-=======
-## 📁 Project Structure
-
->>>>>>> 3d86269184da45bfc368b6bc2240654cebedf140
